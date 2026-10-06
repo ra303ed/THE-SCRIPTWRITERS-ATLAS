@@ -15,7 +15,7 @@ You will be able to create different defensible versions from the same verified 
 
 # Lesson 15 — Control the Lens, Emphasis, and Omission
 
-**Estimated voiceover:** 12–15 minutes · **Practice:** 35 minutes
+**Estimated voiceover:** 12–15 minutes · **Practice:** 35 minutes · **Audio:** [listen to Lesson 15](../audio/phase-11-lesson-15.m3u)
 
 ## What You Will Learn
 

@@ -15,7 +15,7 @@ You will deliver a long-form production package and an independent Short. Anothe
 
 # Lesson 16 — Build a Production-Ready Script Package
 
-**Estimated voiceover:** 15–20 minutes · **Project time:** 5–8 hours, often spread across several days
+**Estimated voiceover:** 15–20 minutes · **Project time:** 5–8 hours, often spread across several days · **Audio:** [listen to Lesson 16](../audio/phase-12-lesson-16.m3u)
 
 ## What You Will Learn
 

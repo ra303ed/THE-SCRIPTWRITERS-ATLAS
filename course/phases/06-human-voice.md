@@ -177,7 +177,7 @@ Carry this principle forward: human writing is not a costume. It is evidence of 
 
 # Lesson 9 — Write for Breath, Rhythm, and Comprehension
 
-**Estimated voiceover:** 10–12 minutes · **Practice:** 25 minutes
+**Estimated voiceover:** 10–12 minutes · **Practice:** 25 minutes · **Audio:** [listen to Lesson 9](../audio/phase-06-lesson-09.m3u)
 
 
 ![Lesson 8 Takeaway](../images/takeaway-08.svg)

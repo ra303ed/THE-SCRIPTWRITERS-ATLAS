@@ -15,7 +15,7 @@ You will have a brief, an evidence plan, a causal outline, a messy first draft, 
 
 # Lesson 12 — The Brief-to-Script Workshop
 
-**Estimated voiceover:** 15–18 minutes · **Workshop:** 90–150 minutes
+**Estimated voiceover:** 15–18 minutes · **Workshop:** 90–150 minutes · **Audio:** [listen to Lesson 12](../audio/phase-09-lesson-12.m3u)
 
 ## What You Will Learn
 

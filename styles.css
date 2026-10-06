@@ -383,9 +383,31 @@ button { color: inherit; }
 .transcript-copy[hidden] { display: none !important; }
 .transcript-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 17px 0 8px; }
 .transcript-heading h3 { margin: 4px 0 0; color: var(--ink); font-family: var(--display); font-size: 13px; font-weight: 600; }
-.transcript-toggle { padding: 5px 9px; border: 1px solid var(--hairline); border-radius: 7px; color: var(--muted); background: transparent; font-size: 9px; cursor: pointer; }
-.transcript-toggle:hover { border-color: var(--primary-on-dark); color: var(--ink); }
+.transcript-heading-actions { display: flex; align-items: center; flex: none; gap: 7px; }
+.transcript-toggle, .transcript-fullscreen-toggle { min-height: 30px; padding: 5px 9px; border: 1px solid var(--hairline); border-radius: 7px; color: var(--muted); background: transparent; font-size: 9px; cursor: pointer; }
+.transcript-toggle:hover, .transcript-fullscreen-toggle:hover { border-color: var(--primary-on-dark); color: var(--ink); }
+.transcript-fullscreen-toggle { color: var(--primary-on-dark); }
+.transcript-fullscreen-toggle span { margin-inline-start: 3px; font-size: 13px; vertical-align: -1px; }
 .transcript-scroll { max-height: min(38vh, 350px); min-height: 115px; padding: 13px 14px; overflow: auto; overscroll-behavior: contain; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; background: rgba(0,0,0,.23); scrollbar-color: rgba(255,255,255,.22) transparent; scrollbar-width: thin; }
+.transcript-reader.is-fullscreen {
+  position: fixed; inset: 0; z-index: 120;
+  display: flex; flex-direction: column;
+  width: 100vw; height: 100vh; height: 100dvh; margin: 0;
+  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  overflow: hidden; border: 0; border-radius: 0;
+  background: radial-gradient(ellipse at top, rgba(41,151,255,.12), transparent 55%), #121214;
+  box-shadow: none;
+}
+.transcript-reader.is-fullscreen .transcript-heading { flex: none; margin: 0 0 13px; }
+.transcript-reader.is-fullscreen .transcript-heading h3 { font-size: 18px; }
+.transcript-reader.is-fullscreen .transcript-toggle { display: none; }
+.transcript-reader.is-fullscreen .transcript-copy { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+.transcript-reader.is-fullscreen .transcript-scroll { flex: 1; width: 100%; max-height: none; min-height: 0; padding: clamp(17px, 4vw, 42px) clamp(17px, 4vw, 42px) 130px; border-color: rgba(255,255,255,.12); background: rgba(0,0,0,.25); }
+.transcript-reader.is-fullscreen .transcript-content { width: min(100%, 920px); margin: 0 auto; }
+.transcript-reader.is-fullscreen .transcript-paragraph { margin-bottom: 1.15em; font-size: clamp(18px, 2.15vw, 22px); line-height: 1.9; letter-spacing: 0; }
+.transcript-reader.is-fullscreen .transcript-legend, .transcript-reader.is-fullscreen .transcript-note { width: min(100%, 1000px); margin-right: auto; margin-left: auto; }
+html.has-transcript-fullscreen, html.has-transcript-fullscreen body { overflow: hidden; overscroll-behavior: none; }
+html.has-transcript-fullscreen .voice-dock { z-index: 130; }
 .transcript-scroll::-webkit-scrollbar { width: 6px; }
 .transcript-scroll::-webkit-scrollbar-thumb { border-radius: 99px; background: rgba(255,255,255,.19); }
 .transcript-paragraph { margin: 0 0 11px; color: var(--ink-soft); font-size: 15px; line-height: 1.85; letter-spacing: -.006em; }
@@ -619,6 +641,11 @@ button { color: inherit; }
   .voice-dock-section-name { font-size: 9px; }
   .voice-dock-caption { min-height: 42px; margin: 3px 0 6px; font-size: 10px; line-height: 1.4; }
   .transcript-scroll { max-height: min(34vh, 310px); }
+  .transcript-reader.is-fullscreen { padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)); }
+  .transcript-reader.is-fullscreen .transcript-heading { margin-bottom: 9px; }
+  .transcript-reader.is-fullscreen .transcript-scroll { padding: 17px 13px 145px; }
+  .transcript-reader.is-fullscreen .transcript-paragraph { font-size: 18px; line-height: 1.85; }
+  .transcript-reader.is-fullscreen .transcript-legend { gap: 6px 10px; }
 }
 
 @media (max-width: 480px) {
