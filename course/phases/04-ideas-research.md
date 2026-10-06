@@ -115,6 +115,9 @@ The better version names the scope and avoids claiming that a single result prov
 - Hiding a counterpoint in a final disclaimer after the audience has already formed a false impression.
 - Researching indefinitely because no stop rule defines what decision the next source could change.
 
+
+![Common Mistakes — Lesson 6](../images/common-mistakes-06.svg)
+
 ## How to Apply It
 
 1. State the question in one sentence.
@@ -195,6 +198,9 @@ There is no need to apologize for uncertainty when the uncertainty is real. “T
 Your goal is not to make a script sound certain. Your goal is to make the viewer’s understanding more accurate. Research earns its place when it changes the question, supports the answer, shows a useful alternative, or helps someone act. Everything else can wait in the notes.
 
 ---
+
+
+![Lesson 6 Takeaway](../images/takeaway-06.svg)
 
 ## MASTERED
 

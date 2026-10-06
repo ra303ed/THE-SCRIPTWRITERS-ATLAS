@@ -87,6 +87,9 @@ The tone changes; the point stays recognizable. Do not copy another creator’s 
 - Calling a draft human because it has a joke, even when the reasoning is generic.
 - Mistaking a calm or careful tone for a lack of personality.
 
+
+![Common Mistakes — Lesson 8](../images/common-mistakes-08.svg)
+
 ## How to Apply It
 
 1. Mark every sentence as **claim / observation / inference / example / filler / borrowed phrase**.
@@ -176,6 +179,9 @@ Carry this principle forward: human writing is not a costume. It is evidence of 
 
 **Estimated voiceover:** 10–12 minutes · **Practice:** 25 minutes
 
+
+![Lesson 8 Takeaway](../images/takeaway-08.svg)
+
 ## What You Will Learn
 
 - Adjust sentence, information, narrative, and emotional pacing.
@@ -240,6 +246,9 @@ The second compresses routine and holds on the meaningful discovery. Use it only
 - Explaining an obvious shot while leaving an audio-only listener without the cause.
 - Adding music or effects to create emotion the evidence does not support.
 - Treating a word-count estimate as a guaranteed runtime.
+
+
+![Common Mistakes — Lesson 9](../images/common-mistakes-09.svg)
 
 ## How to Apply It
 
@@ -322,6 +331,9 @@ The assignment is to record the first minute of your capstone twice. Compare the
 Here is the principle: spoken pacing is not a contest to say more. It is how you control the rate at which a person can understand, notice, and feel the important parts. Let the sentence, picture, and pause share the work.
 
 ---
+
+
+![Lesson 9 Takeaway](../images/takeaway-09.svg)
 
 ## MASTERED
 

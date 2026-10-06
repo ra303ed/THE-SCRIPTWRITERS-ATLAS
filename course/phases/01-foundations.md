@@ -88,6 +88,9 @@ The second version gives a viewer a recognizable problem, an investigation, and 
 - Choosing a title first and forcing the research to defend it.
 - Confusing a personal opinion with a tested conclusion.
 
+
+![Common Mistakes — Lesson 1](../images/common-mistakes-01.svg)
+
 ## How to Apply It
 
 1. Write the topic in two or three words.
@@ -119,6 +122,9 @@ Stop here and write your version before opening the model answer.
 Other answers can be stronger if their evidence path is real and their promise is narrower. Do not copy the subject if it is not yours; copy the quality of the decisions.
 
 </details>
+
+
+![Practice Exercise — Lesson 1](../images/exercise-01.svg)
 
 ## Mini Checkpoint
 
@@ -182,6 +188,9 @@ The key idea to carry forward is this: a script begins before the first line. It
 # Lesson 2 — From Thought to Clear Sentence
 
 **Estimated voiceover:** 8–10 minutes · **Practice:** 20 minutes · **Audio:** [listen to Lesson 2](../audio/phase-01-lesson-02.m3u)
+
+
+![Lesson 1 Takeaway](../images/takeaway-01.svg)
 
 ## What You Will Learn
 
@@ -253,6 +262,9 @@ The revision names an actor, action, and observable limit. “Better” is not s
 - Replacing repeated useful terms with unnatural synonyms.
 - Hiding who acted behind passive phrasing when responsibility matters.
 - Reading punctuation as decoration instead of thought, relation, and breath.
+
+
+![Common Mistakes — Lesson 2](../images/common-mistakes-02.svg)
 
 ## How to Apply It
 
@@ -332,6 +344,9 @@ When you read, do not mark every pause with punctuation. Listen for the thought 
 Carry this with you: the best sentence is not the one that impresses another writer. It is the one that helps your viewer understand the right thing at the right moment.
 
 ---
+
+
+![Lesson 2 Takeaway](../images/takeaway-02.svg)
 
 ## MASTERED
 

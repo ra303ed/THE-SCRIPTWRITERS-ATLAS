@@ -30,7 +30,7 @@ You will be able to create different defensible versions from the same verified 
 Advanced craft is purposeful control. Every inclusion, omission, reveal, pause, and emphasis changes what the audience believes next.
 
 
-![Control the Lens — One event, multiple honest lenses, choose one](../images/lesson-15-lens-emphasis-omission.svg)
+![Control the Lens — One event, multiple honest lenses, choose one](../images/lesson-15-lens-emphasis-omission.jpg)
 
 ## Why This Matters
 
@@ -100,6 +100,9 @@ The improved advice identifies its use case and boundary. It persuades by surviv
 - Telling the audience what to feel before letting them inspect the evidence.
 - Cramming tutorial, essay, personal story, and sales argument into one promise.
 - Believing a strong ending must be surprising; a precise answer can be more satisfying.
+
+
+![Common Mistakes — Lesson 15](../images/common-mistakes-15.svg)
 
 ## How to Apply It
 
@@ -182,6 +185,9 @@ Ask a skeptical reader to challenge your thesis. Do not pick the easiest objecti
 Carry this into the final project: the lens decides which question you answer, the evidence decides how strongly you can answer it, and restraint decides what you do not ask the viewer to believe. Advanced craft is not more decoration. It is control with accountability.
 
 ---
+
+
+![Lesson 15 Takeaway](../images/takeaway-15.svg)
 
 ## MASTERED
 

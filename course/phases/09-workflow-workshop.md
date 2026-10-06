@@ -31,7 +31,7 @@ You will have a brief, an evidence plan, a causal outline, a messy first draft, 
 A professional workflow is a decision map, not an assembly line. Each stage should reduce uncertainty and produce something the next stage can use.
 
 
-![The Professional Workflow — Brief → Think → Write → Review → Rewrite → Finalize](../images/lesson-12-brief-to-script.svg)
+![The Professional Workflow — Brief → Think → Write → Review → Rewrite → Finalize](../images/lesson-12-brief-to-script.jpg)
 
 ## Why This Matters
 
@@ -133,6 +133,9 @@ The rewrite replaces broad claims with observable evidence, gives the audience t
 - Treating the pipeline as one-way; honest new evidence may require a new thesis.
 - Smoothing over [VERIFY] items because the draft “sounds finished.”
 
+
+![Common Mistakes — Lesson 12](../images/common-mistakes-12.svg)
+
 ## How to Apply It
 
 Use the [brief template](../WORKBOOK.md#3-project-brief) and work in this order:
@@ -155,6 +158,9 @@ Pick a real idea you can produce. Spend 10 minutes on the brief. Spend 20–40 m
 The packet is ready for the next stage when the question is specific, the evidence can be obtained, the claim has a limit, the beats are not just topics, the hook can be shown, the first useful proof arrives in time, and the ending pays the promise. Any missing fact, scene, or permission remains visible as a task—not silently upgraded to truth.
 
 </details>
+
+
+![Practice Exercise — Lesson 12](../images/exercise-12.svg)
 
 ## Mini Checkpoint
 
@@ -221,6 +227,9 @@ Also distinguish a blocker from a polish item. A missing permission, unverified 
 Try the sprint in your own project. Make the brief, evidence map, beat sheet, hook options, draft, change log, and two copies. Keep the first draft. The version history is evidence of your judgment developing. Next we will deliberately inspect weak writing, name the failure, and repair it for a reason.
 
 ---
+
+
+![Lesson 12 Takeaway](../images/takeaway-12.svg)
 
 ## MASTERED
 

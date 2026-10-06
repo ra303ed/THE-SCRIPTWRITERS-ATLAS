@@ -79,6 +79,9 @@ The second version connects the technical fix to a deeper problem and a revised 
 - Forcing “but” or “therefore” where nothing is in conflict or caused by the prior beat.
 - Calling a list a story when the options are genuinely independent.
 
+
+![Common Mistakes — Lesson 4](../images/common-mistakes-04.svg)
+
 ## How to Apply It
 
 1. Choose a true project, decision, or learning problem.
@@ -99,6 +102,9 @@ Use a real editing, study, repair, or research mistake. Fill in: **WANT / OBSTAC
 A strong map makes the revised choice necessary: the first attempt reveals something that changes the next action. If the second version is just a more dramatic retelling of the same sequence, it has not added causality. A list of steps may be the more honest form for a routine tutorial.
 
 </details>
+
+
+![Practice Exercise — Lesson 4](../images/exercise-04.svg)
 
 ## Mini Checkpoint
 
@@ -163,6 +169,9 @@ Your takeaway is that story is change made legible. The viewer should be able to
 
 **Estimated voiceover:** 10–12 minutes · **Practice:** 30 minutes · **Audio:** [listen to Lesson 5](../audio/phase-03-lesson-05.m3u)
 
+
+![Lesson 4 Takeaway](../images/takeaway-04.svg)
+
 ## What You Will Learn
 
 - Select a structure based on the kind of question and evidence you have.
@@ -225,6 +234,9 @@ The second follows a goal, action, and test. If there is no genuine uncertain ou
 - Making a tutorial so suspenseful that viewers do not know what to do.
 - Leaving a counterargument until the end even when it changes the meaning of the opening claim.
 - Treating a midpoint as a clock position; a meaningful turn depends on new information, not halfway runtime.
+
+
+![Common Mistakes — Lesson 5](../images/common-mistakes-05.svg)
 
 ## How to Apply It
 
@@ -301,6 +313,9 @@ Ask one more question: what would make this structure fail for my viewer? A begi
 The takeaway: a structure is a promise about how information will unfold. Choose the one that lets the viewer follow the evidence, feel the real change, and receive a complete answer. The shape should come from the material. It should not ask the material to pretend to be something else.
 
 ---
+
+
+![Lesson 5 Takeaway](../images/takeaway-05.svg)
 
 ## MASTERED
 

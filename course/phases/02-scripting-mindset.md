@@ -77,6 +77,9 @@ The improved version distinguishes technical progress from story progress. It li
 - Treating a retention graph as proof that a particular sentence caused a viewer to leave.
 - Polishing grammar before discovering that the paragraph belongs in a different video.
 
+
+![Common Mistakes — Lesson 3](../images/common-mistakes-03.svg)
+
 ## How to Apply It
 
 For each outline beat, fill in:
@@ -168,6 +171,9 @@ Now consider a beautiful sentence that contains no proof. It may still earn a pl
 The principle to carry into the next phase is simple: the viewer experiences a sequence of changes, not your outline labels. Make each beat earn its place, and let the evidence—not your attachment to the draft—decide how strongly you can state the answer.
 
 ---
+
+
+![Lesson 3 Takeaway](../images/takeaway-03.svg)
 
 ## MASTERED
 

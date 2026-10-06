@@ -31,7 +31,7 @@ You will deliver a long-form production package and an independent Short. Anothe
 A professional script is not just a polished page. It is a defensible promise, supported by evidence, shaped for a viewer, and clear enough to produce.
 
 
-![Production-Ready Package — Long-form + Short-form deliverable](../images/lesson-16-production-ready-package.svg)
+![Production-Ready Package — Long-form + Short-form deliverable](../images/lesson-16-production-ready-package.jpg)
 
 ## Why This Matters
 
@@ -121,6 +121,9 @@ Rate each domain **Needs Work / Developing / Strong / Professional**. Include a 
 - Calling a script production-ready while [VERIFY], permissions, or missing shots remain open.
 - Using views or retention as the only measure of whether the writing worked.
 
+
+![Common Mistakes — Lesson 16](../images/common-mistakes-16.svg)
+
 ## How to Apply It
 
 Work in stages and keep a dated folder with `brief`, `research`, `outline`, `draft-v1`, `draft-v2`, `recording-copy`, `editor-copy`, and `postmortem`. Ask for feedback at the right moment: a brief reader checks the idea; a new viewer checks clarity; a collaborator checks production notes. Do not ask a viewer to fact-check specialist claims they cannot verify.
@@ -134,6 +137,9 @@ Before calling the project final, hand the editor copy to someone who has not he
 The packet is ready when the performer can deliver the intended thought at a natural pace; the editor can locate each proof asset; the viewer can distinguish what happened from what you infer; each open loop has an answer; the Short makes sense alone; and all factual, rights, and disclosure items are closed or visibly marked as blockers. A polished PDF is not proof that the project is ready.
 
 </details>
+
+
+![Practice Exercise — Lesson 16](../images/exercise-16.svg)
 
 ## Mini Checkpoint
 
@@ -209,6 +215,9 @@ One last reminder: strong writing does not guarantee a particular number of view
 Take a breath before you start. Choose one real question. Build the evidence path. Make the promise fair. Then write the script that the material deserves.
 
 ---
+
+
+![Lesson 16 Takeaway](../images/takeaway-16.svg)
 
 ## MASTERED
 

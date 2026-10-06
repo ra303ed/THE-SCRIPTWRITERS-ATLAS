@@ -92,6 +92,9 @@ The better opening reveals enough to make the problem concrete, then gives a pre
 - Using visual interruption without a new piece of information.
 - Treating retention metrics as proof of the cause of a viewer’s behavior.
 
+
+![Common Mistakes — Lesson 7](../images/common-mistakes-07.svg)
+
 ## How to Apply It
 
 1. Write the viewer and the specific question in the margin.
@@ -123,6 +126,9 @@ For each, state the viewer, first proof, information you are holding, and how th
 Each is a different contract. A quiet scene works only if the image carries a relevant question.
 
 </details>
+
+
+![Practice Exercise — Lesson 7](../images/exercise-07.svg)
 
 ## Mini Checkpoint
 
@@ -185,6 +191,9 @@ Your assignment is to test the contract with a person who has not seen the draft
 Carry this principle forward: attention is borrowed moment by moment. Give a useful reason to continue, show progress, and close the questions you open. A good hook does not trick a viewer into staying. It helps the right viewer recognize that the video is for them.
 
 ---
+
+
+![Lesson 7 Takeaway](../images/takeaway-07.svg)
 
 ## MASTERED
 
