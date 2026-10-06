@@ -10,11 +10,23 @@ The Markdown in [`course/`](course/README.md) is the canonical course content. T
 
 This repository is configured for a no-dependency static deployment on Vercel:
 
-- `vercel.json` selects the **Other** framework, runs `node build.mjs`, and publishes `dist/`.
+- `vercel.json` runs `node build.mjs` and publishes `dist/`.
+- It deliberately sets **no** `framework` value. There is no framework here to detect, so Vercel falls back to its **Other** preset on its own. Note that `"framework": "other"` is *not* valid in `vercel.json` — “Other” is only a label in the dashboard’s Framework Preset menu, not one of the framework slugs the schema accepts — so writing it makes every deployment fail configuration validation.
 - The build copies the website, full Markdown course, generated audio and playlists, and original source archive into the deployment output.
 - No environment variables, package install, database, or external runtime service are required.
 
-To deploy, import this repository into Vercel and leave the build/output settings at their configured values. For a local production build, run:
+### Deploying
+
+1. Import this repository into Vercel as a new project.
+2. Leave **Framework Preset** on **Other** (the default for this repository) and do **not** add a `framework` key to `vercel.json`.
+3. Leave **Build Command** (`node build.mjs`) and **Output Directory** (`dist`) at their configured values — both come from `vercel.json`, so the dashboard fields can stay untouched.
+4. Deploy. No environment variables are needed.
+
+The committed `vercel.json` is the source of truth for build settings; the dashboard values are only a fallback. If a deploy ever fails during “Validating configuration”, compare `vercel.json` against [Vercel’s project configuration schema](https://openapi.vercel.sh/vercel.json) — the `$schema` key in the file gives the same validation in your editor before you push.
+
+### Building locally
+
+For a local production build, run:
 
 ```sh
 node build.mjs
