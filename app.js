@@ -158,6 +158,20 @@ const AUDIO_TERM_TRANSLATIONS = {
   viewer: "المشاهد",
   trust: "الثقة",
 };
+const AUDIO_SECTION_TRANSLATIONS = {
+  "Core Idea": "الفكرة الأساسية",
+  "Why This Matters": "لماذا يهم هذا",
+  "Deep Explanation": "شرح تفصيلي",
+  "Professional Example": "مثال عملي",
+  "Case Study": "دراسة حالة",
+  "Before / After": "قبل وبعد",
+  "Common Mistakes": "أخطاء شائعة",
+  "How to Apply It": "طريقة التطبيق",
+  "Practice Exercise": "تمرين عملي",
+  "Mini Checkpoint": "مراجعة سريعة",
+  Assignment: "المهمة",
+  Takeaway: "الخلاصة",
+};
 const PROGRESS_KEY = "scriptwriters-atlas-completed-v1";
 let searchIndex = [];
 let searchReady = false;
@@ -581,6 +595,59 @@ function transcriptMarkup(voiceover, lesson) {
   return { markup: paragraphs, cues: transcript.cues };
 }
 
+function arabicSectionTitle(title) {
+  const normalizedTitle = title.toLowerCase();
+  const match = Object.entries(AUDIO_SECTION_TRANSLATIONS)
+    .find(([english]) => normalizedTitle.startsWith(english.toLowerCase()));
+  return match?.[1] || title;
+}
+
+function prepareVoiceSections() {
+  const lessonBody = document.querySelector(".lesson-body");
+  if (!lessonBody) return [];
+
+  const children = [...lessonBody.children];
+  const lessonHeadingIndex = children.findIndex((element) =>
+    element.matches("h1") && /^Lesson\s+\d+\b/i.test(element.textContent.trim())
+  );
+  if (lessonHeadingIndex < 0) return [];
+
+  const sections = [];
+  let currentSection = null;
+  for (const element of children.slice(lessonHeadingIndex + 1)) {
+    if (element.matches("h1")) break;
+    if (element.matches("h2")) {
+      currentSection = null;
+      const title = element.textContent.trim();
+      // Learning objectives are a quick overview, not something the voiceover reads line by line.
+      if (/^(what you will learn|mastered|next)\b/i.test(title)) continue;
+
+      currentSection = document.createElement("section");
+      currentSection.className = "lesson-section";
+      currentSection.dataset.voiceSection = "true";
+      currentSection.dataset.sectionTitle = title;
+      currentSection.setAttribute("aria-label", `Lesson section: ${title}`);
+      lessonBody.insertBefore(currentSection, element);
+      currentSection.appendChild(element);
+      sections.push(currentSection);
+      continue;
+    }
+    if (currentSection) currentSection.appendChild(element);
+  }
+
+  return sections.map((section, index) => {
+    const copy = section.cloneNode(true);
+    copy.querySelectorAll(".answer-reveal, .lesson-section-now").forEach((element) => element.remove());
+    const words = (copy.textContent.match(/[\p{L}\p{N}]+(?:[’'-][\p{L}\p{N}]+)*/gu) || []).length;
+    return {
+      index,
+      title: section.dataset.sectionTitle,
+      element: section,
+      weight: Math.max(18, words),
+    };
+  });
+}
+
 function textOnly(markdown) {
   return markdown
     .replace(/<details[^>]*>|<\/details>|<summary>|<\/summary>/gi, " ")
@@ -727,10 +794,10 @@ function audioPlayerMarkup(lesson, voiceover) {
   ).join("");
   return `<section class="audio-panel" id="audio-panel" aria-label="Lesson voiceover and synchronized transcript">
     <div class="audio-panel-head">
-      <div><span class="player-kicker">LESSON ${lessonCode} · VOICEOVER</span><h2><span lang="ar" dir="rtl">اسمع واقرأ معًا</span><small>Listen &amp; read along</small></h2><p lang="ar" dir="rtl">شغّل الصوت واتبع الجملة المضيئة. الكلمات الذهبية هي الأفكار المهمة ومعناها بالعربي بجانبها.</p></div>
+      <div><span class="player-kicker" lang="ar" dir="rtl">الدرس ${lessonCode} · التعليق الصوتي</span><h2><span lang="ar" dir="rtl">اسمع واقرأ معًا</span><small>Listen &amp; read along</small></h2><p lang="ar" dir="rtl">شغّل الصوت واتبع الجملة المضيئة. الكلمات الذهبية هي الأفكار المهمة ومعناها بالعربي بجانبها.</p></div>
       <div class="audio-panel-actions"><a href="${base}.m3u" download aria-label="تحميل قائمة الصوت">تحميل القائمة ↗</a><button class="audio-close" id="audio-close" aria-label="إخفاء مشغل الصوت ونصه" title="إخفاء">×</button></div>
     </div>
-    <audio id="lesson-audio" controls preload="metadata" data-current-part="0" src="${base}-part-01.mp3">Your browser does not support audio playback.</audio>
+    <audio id="lesson-audio" controls preload="metadata" data-current-part="0" aria-label="تشغيل التعليق الصوتي للدرس" src="${base}-part-01.mp3">Your browser does not support audio playback.</audio>
     <div class="audio-status-row"><span id="audio-status" role="status" aria-live="polite">جاهز · المقطع 1 من ${partCount}</span><span id="audio-time">0:00</span></div>
     <div class="audio-progress" id="audio-progress" role="progressbar" aria-label="تقدم الصوت" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><span id="audio-progress-fill"></span></div>
     <div class="audio-control-row">
@@ -738,15 +805,20 @@ function audioPlayerMarkup(lesson, voiceover) {
       <label class="speed-control" for="audio-speed"><span lang="ar" dir="rtl">سرعة الصوت</span><select id="audio-speed" aria-label="سرعة تشغيل الصوت"><option value="0.8">0.8× بطيء</option><option value="0.9">0.9×</option><option value="1" selected>1× عادي</option><option value="1.15">1.15×</option></select></label>
     </div>
     <div class="transcript-heading">
-      <div><span class="transcript-kicker">READ ALONG</span><h3 lang="ar" dir="rtl">نص التعليق الصوتي</h3></div>
+      <div><span class="transcript-kicker" lang="ar" dir="rtl">تابع النص</span><h3 lang="ar" dir="rtl">نص التعليق الصوتي</h3></div>
       <button class="transcript-toggle" id="transcript-toggle" type="button" aria-expanded="true">إخفاء النص</button>
     </div>
     <div class="transcript-copy" id="transcript-copy">
       <div class="transcript-scroll" id="transcript-scroll" lang="en" dir="ltr" role="region" aria-label="نص التعليق الصوتي المتزامن">
         <div class="transcript-content" id="transcript-content">${transcript.markup}</div>
       </div>
-      <div class="transcript-legend"><span><i aria-hidden="true"></i>أفكار أساسية</span><div class="key-term-list">${keyTerms}</div></div>
-      <p class="transcript-note" lang="ar" dir="rtl">يتم تظليل الجملة الحالية مع تقدم الصوت؛ قد يختلف التظليل قليلًا عن النطق الفعلي.</p>
+      <div class="transcript-legend" lang="ar" dir="rtl">
+        <span class="legend-current-line"><i aria-hidden="true"></i>السطر الأزرق هو الجاري نطقه</span>
+        <span class="legend-active-section"><i aria-hidden="true"></i>القسم ذو الإطار الأزرق هو الجاري شرحه</span>
+        <span class="legend-key-terms"><i aria-hidden="true"></i>الكلمات الذهبية مهمة</span>
+        <div class="key-term-list">${keyTerms}</div>
+      </div>
+      <p class="transcript-note" lang="ar" dir="rtl">القسم والجملة يتقدمان تلقائيًا مع الصوت. التوقيت تقديري لأن التسجيلات لا تحتوي على توقيت منفصل لكل كلمة.</p>
     </div>
   </section>`;
 }
@@ -758,7 +830,8 @@ function voiceoverDockMarkup(lesson) {
       <svg class="voice-toggle-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-play" d="M8 5.5v13l10-6.5z"></path><path class="icon-pause" d="M7 5h4v14H7zm7 0h4v14h-4z"></path></svg>
     </button>
     <div class="voice-dock-main">
-      <div class="voice-dock-meta"><span class="voice-live-dot"></span><span>LESSON ${String(lesson.number).padStart(2, "0")} · VOICEOVER</span><span class="voice-dock-state" id="voice-dock-state">جاهز</span></div>
+      <div class="voice-dock-meta"><span class="voice-live-dot"></span><span lang="ar" dir="rtl">الدرس ${String(lesson.number).padStart(2, "0")} · التعليق الصوتي</span><span class="voice-dock-state" id="voice-dock-state">جاهز</span></div>
+      <div class="voice-dock-section" id="voice-dock-section" aria-live="polite" lang="ar" dir="rtl"><span class="voice-dock-section-label">القسم الحالي</span><strong class="voice-dock-section-name" id="voice-dock-section-name">شغّل الصوت ليظهر هنا</strong></div>
       <p class="voice-dock-caption" id="voice-dock-caption" lang="ar" dir="rtl" aria-live="polite">اضغط تشغيل لتسمع وتتابع النص.</p>
       <div class="voice-dock-progress" id="voice-dock-progress" role="progressbar" aria-label="تقدم الصوت" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><span id="voice-dock-progress-fill"></span></div>
     </div>
@@ -889,16 +962,20 @@ function bindInteractions(route) {
     renderApp();
   });
 
+  const audio = document.getElementById("lesson-audio");
+  const voiceSections = audio ? prepareVoiceSections() : [];
   const audioPanel = document.getElementById("audio-panel");
   const audioOpen = document.getElementById("audio-open");
   const audioOpenLabel = document.getElementById("audio-open-label");
   const audioClose = document.getElementById("audio-close");
-  const audio = document.getElementById("lesson-audio");
-  const audioParts = [...document.querySelectorAll("[data-audio-part]")];
+  // Transcript sentences also carry data-audio-part; only the five actual track buttons are parts.
+  const audioParts = [...document.querySelectorAll(".audio-part[data-audio-part]")];
   const audioSpeed = document.getElementById("audio-speed");
   const voiceToggle = document.getElementById("voice-toggle");
   const voiceDock = document.getElementById("voice-dock");
   const voiceDockState = document.getElementById("voice-dock-state");
+  const voiceDockSection = document.getElementById("voice-dock-section");
+  const voiceDockSectionName = document.getElementById("voice-dock-section-name");
   const voiceCaption = document.getElementById("voice-dock-caption");
   const voiceShowTranscript = document.getElementById("voice-show-transcript");
   const transcriptCopy = document.getElementById("transcript-copy");
@@ -919,7 +996,9 @@ function bindInteractions(route) {
   const dockProgress = document.getElementById("voice-dock-progress");
   const dockProgressFill = document.getElementById("voice-dock-progress-fill");
   let activeCueIndex = -1;
+  let activeVoiceSectionIndex = -1;
   let playbackStarted = false;
+  const totalSectionWeight = voiceSections.reduce((total, section) => total + section.weight, 0);
 
   const currentPartIndex = () => Math.max(0, Math.min(partCount - 1, Number(audio?.dataset.currentPart) || 0));
   const formatTime = (seconds) => {
@@ -934,6 +1013,51 @@ function bindInteractions(route) {
     transcriptToggle?.setAttribute("aria-expanded", String(open));
     if (transcriptToggle) transcriptToggle.textContent = open ? "إخفاء النص" : "إظهار النص";
   };
+  const setActiveVoiceSection = (progress, scroll = false) => {
+    if (!voiceSections.length || !totalSectionWeight) return;
+    let remainingWeight = Math.max(0, Math.min(1, progress)) * totalSectionWeight;
+    let selectedSection = voiceSections[voiceSections.length - 1];
+    for (const section of voiceSections) {
+      if (remainingWeight < section.weight) {
+        selectedSection = section;
+        break;
+      }
+      remainingWeight -= section.weight;
+    }
+    if (selectedSection.index === activeVoiceSectionIndex) return;
+
+    const previousSection = voiceSections.find((section) => section.index === activeVoiceSectionIndex);
+    previousSection?.element.classList.remove("is-voice-active");
+    previousSection?.element.removeAttribute("aria-current");
+    previousSection?.element.querySelector(".lesson-section-now")?.remove();
+
+    activeVoiceSectionIndex = selectedSection.index;
+    selectedSection.element.classList.add("is-voice-active");
+    selectedSection.element.setAttribute("aria-current", "location");
+    const indicator = document.createElement("span");
+    indicator.className = "lesson-section-now";
+    indicator.lang = "ar";
+    indicator.dir = "rtl";
+    const arabicTitle = arabicSectionTitle(selectedSection.title);
+    indicator.textContent = `يُشرح الآن · ${arabicTitle}`;
+    selectedSection.element.prepend(indicator);
+
+    if (voiceDockSectionName) {
+      voiceDockSectionName.textContent = arabicTitle;
+      voiceDockSectionName.lang = "ar";
+      voiceDockSectionName.dir = "rtl";
+      voiceDockSectionName.title = selectedSection.title;
+      voiceDockSection?.setAttribute("aria-label", `القسم الجاري شرحه: ${arabicTitle} (${selectedSection.title})`);
+    }
+    if (scroll && audio && !audio.paused) {
+      const bounds = selectedSection.element.getBoundingClientRect();
+      const obscuredAbove = bounds.top < 74;
+      const obscuredBelow = bounds.bottom > window.innerHeight - 132;
+      if (obscuredAbove || obscuredBelow) {
+        selectedSection.element.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+    }
+  };
   const setPanelOpen = (open, scroll = false, revealTranscript = false) => {
     if (!audioPanel) return;
     audioPanel.hidden = !open;
@@ -941,6 +1065,12 @@ function bindInteractions(route) {
     if (audioOpenLabel) audioOpenLabel.textContent = open ? "إخفاء النص" : "إظهار النص";
     if (open && revealTranscript) setTranscriptOpen(true);
     if (scroll && open) audioPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    if (open && revealTranscript) {
+      window.setTimeout(() => {
+        const activeCue = transcriptCues.find((cue) => cue.index === activeCueIndex);
+        if (activeCue) scrollTranscriptCueIntoView(activeCue.element);
+      }, scroll ? 220 : 0);
+    }
   };
   const scrollTranscriptCueIntoView = (element) => {
     if (!transcriptScroll || audioPanel?.hidden || !element) return;
@@ -987,6 +1117,8 @@ function bindInteractions(route) {
       remainingWeight -= cue.weight;
     }
     setActiveCue(selectedCue);
+    const overallProgress = Math.max(0, Math.min(1, (currentPartIndex() + progress) / Math.max(1, partCount)));
+    if (playbackStarted || !audio.paused) setActiveVoiceSection(overallProgress, !audio.paused);
   };
   const updateProgress = () => {
     if (!audio || !partCount) return;
@@ -1076,6 +1208,7 @@ function bindInteractions(route) {
   });
   audio?.addEventListener("play", () => {
     playbackStarted = true;
+    updateActiveCue();
     updateProgress();
   });
   audio?.addEventListener("pause", updateProgress);
@@ -1086,6 +1219,7 @@ function bindInteractions(route) {
       return;
     }
     if (transcriptCues.length) setActiveCue(transcriptCues[transcriptCues.length - 1]);
+    setActiveVoiceSection(1, false);
     updateProgress();
   });
   updateActiveCue();
