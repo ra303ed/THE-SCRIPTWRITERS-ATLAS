@@ -9,6 +9,8 @@ You will learn how desire, resistance, new information, choice, and consequence 
 ## BY THE END
 You will be able to map a real change, connect beats with honest cause-and-effect, select a fitting structure, and explain what the audience learns at each turn.
 
+![Phase 3 Mind Map — Story & Structure](../images/mindmap-phase-03.svg)
+
 ---
 
 # Lesson 4 — Build Movement from Cause, Choice, and Consequence
@@ -26,6 +28,8 @@ You will be able to map a real change, connect beats with honest cause-and-effec
 ## Core Idea
 
 A story makes change legible: someone or something wants a result, meets resistance, makes a choice, and lives with a consequence.
+
+![Build Movement — Desire → Obstacle → Attempt → New Information → Choice → Consequence → Change](../images/lesson-04-cause-choice-consequence.jpg)
 
 ## Why This Matters
 
@@ -165,6 +169,8 @@ Your takeaway is that story is change made legible. The viewer should be able to
 - Avoid treating familiar structures as magic formulas.
 
 ## Core Idea
+
+![Choose a Structure — Educational vs Narrative structures](../images/lesson-05-structure-fits-material.jpg)
 
 Structure is a route through the material. Choose the route that helps this viewer understand this promise—not the route that imitates a successful video’s surface.
 

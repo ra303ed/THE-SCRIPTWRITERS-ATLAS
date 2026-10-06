@@ -9,6 +9,8 @@ You will assign each channel a job, write shootable visual proof, use sound and 
 ## BY THE END
 You will turn one script beat into a production-ready AV plan another person can follow without guessing what the shot is meant to prove.
 
+![Phase 07 Mind Map](../images/mindmap-phase-07.svg)
+
 ---
 
 # Lesson 10 — Write for Image, Sound, and Edit—not Just for the Page
@@ -26,6 +28,9 @@ You will turn one script beat into a production-ready AV plan another person can
 ## Core Idea
 
 A video script coordinates words, evidence, images, sound, and timing so the viewer can understand and feel the intended change.
+
+
+![Write for Image, Sound, and Edit — Script → Visual → Audio → Edit → Viewer Experience](../images/lesson-10-visual-audio-edit.jpg)
 
 ## Why This Matters
 

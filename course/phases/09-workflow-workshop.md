@@ -9,6 +9,8 @@ You will complete a guided workshop that moves through **Brief → Think → Wri
 ## BY THE END
 You will have a brief, an evidence plan, a causal outline, a messy first draft, a revision log, and separate recording and editor copies.
 
+![Phase 09 Mind Map](../images/mindmap-phase-09.svg)
+
 ---
 
 # Lesson 12 — The Brief-to-Script Workshop
@@ -27,6 +29,9 @@ You will have a brief, an evidence plan, a causal outline, a messy first draft, 
 ## Core Idea
 
 A professional workflow is a decision map, not an assembly line. Each stage should reduce uncertainty and produce something the next stage can use.
+
+
+![The Professional Workflow — Brief → Think → Write → Review → Rewrite → Finalize](../images/lesson-12-brief-to-script.svg)
 
 ## Why This Matters
 

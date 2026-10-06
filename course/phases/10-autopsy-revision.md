@@ -9,6 +9,8 @@ You will diagnose a script at sentence, paragraph, beat, and whole-video level. 
 ## BY THE END
 You will produce a documented revision from one draft to a stronger one, explain what changed and why, and identify the next evidence or production test.
 
+![Phase 10 Mind Map](../images/mindmap-phase-10.svg)
+
 ---
 
 # Lesson 13 — Diagnose a Weak Script Before You Rewrite It
@@ -26,6 +28,9 @@ You will produce a documented revision from one draft to a stronger one, explain
 ## Core Idea
 
 A rewrite is useful when it repairs the viewer’s problem and respects the facts—not when it merely sounds more polished.
+
+
+![Diagnose Before You Rewrite — Four diagnostic levels](../images/lesson-13-diagnose-weak-script.svg)
 
 ## Why This Matters
 
@@ -190,6 +195,9 @@ Carry this into your next draft: a good rewrite solves the cause, not the sympto
 ## Core Idea
 
 Revision is a sequence of focused inspections. Fix the idea and structure before the sentence-level polish, and revisit an earlier pass whenever new evidence changes the claim.
+
+
+![Revision Priority Ladder — Fix the biggest problem first](../images/lesson-14-revise-right-order.svg)
 
 ## Why This Matters
 

@@ -9,6 +9,8 @@ You will evaluate ideas, identify what a viewer needs, research efficiently, tra
 ## BY THE END
 You will have a source-backed claim ledger, one credible counterpoint, and an outline that moves from the viewer’s question to a bounded answer.
 
+![Phase 04 Mind Map](../images/mindmap-phase-04.svg)
+
 ---
 
 # Lesson 6 — Find the Question, Check the Claim, Build the Evidence Path
@@ -26,6 +28,9 @@ You will have a source-backed claim ledger, one credible counterpoint, and an ou
 ## Core Idea
 
 Research is not collecting everything related to a subject. It is finding and checking the information that can answer a specific viewer’s question.
+
+
+![Evidence Verification — Observation, Test Result, External Fact, Inference, Opinion](../images/lesson-06-question-claim-evidence.jpg)
 
 ## Why This Matters
 

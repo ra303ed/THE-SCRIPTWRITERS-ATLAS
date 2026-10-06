@@ -9,6 +9,8 @@ You will develop an evidence-led voice, spot generic or artificial writing patte
 ## BY THE END
 You will have a short voice bank, an authenticity edit, and a voiceover passage you can read naturally at a measured pace.
 
+![Phase 06 Mind Map](../images/mindmap-phase-06.svg)
+
 ---
 
 # Lesson 8 — Build a Human Voice Without Performing One
@@ -26,6 +28,9 @@ You will have a short voice bank, an authenticity edit, and a voiceover passage 
 ## Core Idea
 
 A human voice is not a set of casual phrases. It is a recognizable pattern of noticing, judgment, evidence, uncertainty, and rhythm.
+
+
+![Build a Human Voice — Observation, Judgment, Evidence, Uncertainty, Rhythm](../images/lesson-08-human-voice.jpg)
 
 ## Why This Matters
 
@@ -179,6 +184,9 @@ Carry this principle forward: human writing is not a costume. It is evidence of 
 ## Core Idea
 
 A video script arrives once, in time. Write for a mouth and an ear, not only for a reader who can go back a line.
+
+
+![Write for Breath, Rhythm, and Comprehension — Pacing diagram](../images/lesson-09-breath-rhythm.jpg)
 
 ## Why This Matters
 

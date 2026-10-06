@@ -9,6 +9,8 @@ You will design an independent Short, build a long-form progression, and choose 
 ## BY THE END
 You will create two related but complete scripts: one short piece that stands alone and one longer version that earns its extra time with proof, depth, and nuance.
 
+![Phase 08 Mind Map](../images/mindmap-phase-08.svg)
+
 ---
 
 # Lesson 11 — Change the Architecture, Not Just the Runtime
@@ -26,6 +28,9 @@ You will create two related but complete scripts: one short piece that stands al
 ## Core Idea
 
 A Short and a long-form video need different information architecture. The Short makes one complete movement; long-form earns time by developing a larger or changing question.
+
+
+![Long-Form vs Short-Form — Change the Architecture, Not Just the Runtime](../images/lesson-11-long-short-form.svg)
 
 ## Why This Matters
 

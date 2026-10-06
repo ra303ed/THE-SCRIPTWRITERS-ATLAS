@@ -9,6 +9,8 @@ You will build a decision log around audience knowledge, proof, change, order, p
 ## BY THE END
 You will be able to explain the job of every beat in a short sequence—and remove or move material when it does not help the viewer understand, feel, decide, or act.
 
+![Phase 2 Mind Map — The Scripting Mindset](../images/mindmap-phase-02.svg)
+
 ---
 
 # Lesson 3 — Make the Writer’s Decisions Before You Polish the Lines
@@ -26,6 +28,8 @@ You will be able to explain the job of every beat in a short sequence—and remo
 ## Core Idea
 
 A professional script is a sequence of justified choices. Every beat should earn its position by changing what the viewer knows, expects, feels, or can do.
+
+![Six Decision Questions — WHO, WHAT CHANGES, WHAT'S SUPPORTED, WHAT ORDER, WHAT TO SHOW, WHAT CONTRACT](../images/lesson-03-decisions-before-polish.jpg)
 
 ## Why This Matters
 

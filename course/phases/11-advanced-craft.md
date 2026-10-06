@@ -9,6 +9,8 @@ You will shape perspective, make a claim that survives informed resistance, cont
 ## BY THE END
 You will be able to create different defensible versions from the same verified facts, select one, and explain both its focus and its omissions.
 
+![Phase 11 Mind Map](../images/mindmap-phase-11.svg)
+
 ---
 
 # Lesson 15 — Control the Lens, Emphasis, and Omission
@@ -26,6 +28,9 @@ You will be able to create different defensible versions from the same verified 
 ## Core Idea
 
 Advanced craft is purposeful control. Every inclusion, omission, reveal, pause, and emphasis changes what the audience believes next.
+
+
+![Control the Lens — One event, multiple honest lenses, choose one](../images/lesson-15-lens-emphasis-omission.svg)
 
 ## Why This Matters
 

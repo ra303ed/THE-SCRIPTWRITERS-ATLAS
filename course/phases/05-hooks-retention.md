@@ -9,6 +9,8 @@ You will write hooks from different mechanisms, create and close meaningful open
 ## BY THE END
 You will have three genuinely different openings for one idea, a chosen opening tied to real proof, and a beat map showing where the video pays its promise.
 
+![Phase 05 Mind Map](../images/mindmap-phase-05.svg)
+
 ---
 
 # Lesson 7 — Earn Attention, Then Pay It Back
@@ -26,6 +28,9 @@ You will have three genuinely different openings for one idea, a chosen opening 
 ## Core Idea
 
 A hook gives the right viewer a reason to continue and a fair expectation of what the video will deliver. Retention is earned by meaningful progress, not by noise or delay.
+
+
+![Hook Mechanisms — Scene, Question, Contradiction, Demonstration, Stakes, Claim, Visual](../images/lesson-07-earn-attention.jpg)
 
 ## Why This Matters
 

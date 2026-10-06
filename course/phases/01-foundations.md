@@ -9,6 +9,8 @@ You will shape a topic into a viewer-facing idea, then express that idea in clea
 ## BY THE END
 You will have one specific video idea, one honest promise, and a short paragraph that a stranger can understand without you standing beside them to explain it.
 
+![Phase 1 Mind Map — Foundations](../images/mindmap-phase-01.svg)
+
 ---
 
 # Lesson 1 — From a Broad Topic to a Video Idea a Viewer Can Understand
@@ -25,6 +27,8 @@ You will have one specific video idea, one honest promise, and a short paragraph
 ## Core Idea
 
 A topic names a territory. A video idea makes a specific promise about one useful question inside that territory—and has a credible way to answer it.
+
+![From a Broad Topic to a Video Idea — The five-layer funnel: Topic → Question → Audience → Angle → Thesis → Promise](../images/lesson-01-topic-to-idea.jpg)
 
 ## Why This Matters
 
@@ -187,6 +191,8 @@ The key idea to carry forward is this: a script begins before the first line. It
 ## Core Idea
 
 A sentence is a small handoff: you put a thought into words so another person can recover it without guessing.
+
+![From Thought to Clear Sentence — Transforming scattered ideas into structured, clear language](../images/lesson-02-thought-to-sentence.jpg)
 
 ## Why This Matters
 

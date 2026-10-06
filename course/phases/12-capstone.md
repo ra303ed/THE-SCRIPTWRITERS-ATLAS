@@ -9,6 +9,8 @@ You will make and defend the full set of professional decisions—from choosing 
 ## BY THE END
 You will deliver a long-form production package and an independent Short. Another person should be able to produce them without guessing, and a skeptical viewer should be able to tell what is known, inferred, and still uncertain.
 
+![Phase 12 Mind Map](../images/mindmap-phase-12.svg)
+
 ---
 
 # Lesson 16 — Build a Production-Ready Script Package
@@ -27,6 +29,9 @@ You will deliver a long-form production package and an independent Short. Anothe
 ## Core Idea
 
 A professional script is not just a polished page. It is a defensible promise, supported by evidence, shaped for a viewer, and clear enough to produce.
+
+
+![Production-Ready Package — Long-form + Short-form deliverable](../images/lesson-16-production-ready-package.svg)
 
 ## Why This Matters
 
