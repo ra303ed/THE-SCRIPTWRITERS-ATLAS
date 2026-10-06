@@ -79,6 +79,9 @@ The Atlas’s Isaac thumbnail analysis studies a useful relationship: a thumbnai
 **WHY**  
 The better opening reveals enough to make the problem concrete, then gives a precise reason to inspect the next shot. It does not conceal an ordinary answer just to force a longer watch.
 
+
+![Open Loops and Micro-Payoffs — Question to practical payoff timeline](../images/lesson-07-open-loop.jpg)
+
 ## Common Mistakes
 
 - Equating a loud opening with a strong opening.

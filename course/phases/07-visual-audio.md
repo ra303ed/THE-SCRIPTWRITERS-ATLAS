@@ -72,6 +72,9 @@ If the footage does not show this problem, rewrite the line or create a clearly 
 **WHY**  
 The second note names the asset, action, proof, and rights question. It does not ask the editor to guess what “cinematic” means.
 
+
+![Visual Proof Types — Prove, Compare, Reveal, Orient, Demonstrate, Create Room](../images/lesson-10-visual-proof.jpg)
+
 ## Common Mistakes
 
 - Using attractive B-roll that does not support the sentence.

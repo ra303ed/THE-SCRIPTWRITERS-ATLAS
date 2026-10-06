@@ -88,6 +88,9 @@ Each can be valid. None can borrow facts from another lens without checking. If 
 **WHY**  
 The improved advice identifies its use case and boundary. It persuades by surviving a reasonable counterexample, not by pretending one workflow fits every production.
 
+
+![Persuade Without Cornering — Position, Evidence, Alternative, Qualification](../images/lesson-15-persuasion.svg)
+
 ## Common Mistakes
 
 - Treating a strong personal voice as permission to overstate.

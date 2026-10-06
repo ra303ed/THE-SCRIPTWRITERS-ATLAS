@@ -81,6 +81,9 @@ Take an eight-minute script, delete every other sentence, speak twice as fast, a
 **WHY**  
 The second version preserves a complete question, example, turn, and payoff. It does not require the long version to make sense.
 
+
+![Compress vs Expand — Select, don't speed up](../images/lesson-11-compress-expand.svg)
+
 ## Common Mistakes
 
 - Treating a 60-second cut as a Short simply because it is vertical.

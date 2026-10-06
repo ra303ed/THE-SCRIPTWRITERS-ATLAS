@@ -90,6 +90,9 @@ For each outline beat, fill in:
 
 Then check the whole contract: title/thumbnail → opening → first proof → progression → payoff → optional CTA. Mark [VERIFY] or [SHOOT] instead of smoothing over a gap.
 
+
+![The Beat Test — Before, During, After each beat](../images/lesson-03-beat-test.jpg)
+
 ## Practice Exercise — The Change Test
 
 Use the weak six-line sequence below. Do not rewrite it yet. For each sentence, write (a) what the viewer knows before, (b) what changes after, and (c) whether the sentence should stay, move, combine, or go.

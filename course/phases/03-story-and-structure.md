@@ -66,6 +66,9 @@ The central turn is not “the image got better.” It is: **the image got more 
 **WHY**  
 The second version connects the technical fix to a deeper problem and a revised decision. It contains a setup, a turn, and a visible payoff. Use its details only as a hypothetical or after making the footage.
 
+
+![Setup and Payoff — Plant, Expect, Open, Answer, Close](../images/lesson-04-setup-payoff.jpg)
+
 ## Common Mistakes
 
 - Treating chronology as story without showing cause, resistance, or change.
@@ -210,6 +213,9 @@ The source Atlas reads the accessible caption sequence as a structured lesson: i
 
 **WHY**  
 The second follows a goal, action, and test. If there is no genuine uncertain outcome, do not add a false suspense arc. If the process did reveal a real obstacle, a narrative shape may be more informative.
+
+
+![Format Selector — 9 video formats with core movements](../images/lesson-05-format-selector.jpg)
 
 ## Common Mistakes
 

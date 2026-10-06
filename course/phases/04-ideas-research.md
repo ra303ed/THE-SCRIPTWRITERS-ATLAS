@@ -102,6 +102,9 @@ The source Atlas’s analysis of Ali Abdaal’s *How to Invest for Beginners* hi
 **WHY**  
 The better version names the scope and avoids claiming that a single result proves causation. It may still need a source or more context, but its certainty matches its evidence.
 
+
+![Source Matrix — What each source can and cannot establish](../images/lesson-06-source-matrix.jpg)
+
 ## Common Mistakes
 
 - Searching broad keywords before defining the question.

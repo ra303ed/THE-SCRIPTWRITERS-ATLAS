@@ -86,6 +86,9 @@ The rewrite narrows the question, points to evidence, and makes a bounded promis
 **WHY**  
 The improved line connects the next topic to a specific problem. Use it only when the cut and sound test exist; otherwise write the transition your material supports.
 
+
+![Script Autopsy — A deliberately weak draft diagnosed](../images/lesson-13-autopsy-example.svg)
+
 ## Common Mistakes
 
 - Rewriting an entire page when one missing piece of evidence caused the problem.
@@ -240,6 +243,9 @@ Every note should say **what is wrong → why it matters → how to fix it**. A 
 
 **USEFUL LOG**  
 “Moved the first failed cut to 0:06 so the question becomes visible sooner. Trade-off: less context about the tool. Test: ask a new viewer what problem the video will solve after the first 20 seconds.”
+
+
+![The Ten Revision Passes — From structure to polish](../images/lesson-14-ten-passes.svg)
 
 ## Common Mistakes
 

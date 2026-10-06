@@ -96,6 +96,9 @@ The tone changes; the point stays recognizable. Do not copy another creator’s 
 5. Build a voice bank: ten lines from your natural speech, ten details you noticed, five opinions you can defend, three times you changed your mind, and five expressions you would never say.
 6. Read the result aloud. If it sounds like someone else’s persona, rewrite it in your own register.
 
+
+![Voice Bank Builder — What makes a voice recognizable and human](../images/lesson-08-voice-bank.jpg)
+
 ## Practice Exercise — Authenticity Audit
 
 Take 150–200 words you wrote. Label each sentence. Replace three filler lines with one real observation, one source-backed fact, and one honest uncertainty. If you have no suitable fact or observation, mark the gap instead of inventing one.
@@ -247,6 +250,9 @@ The second compresses routine and holds on the meaningful discovery. Use it only
 5. Give the listener a beat after dense information or visual evidence.
 6. Record again at a natural pace and time it.
 7. Listen without the picture. Watch muted. Check whether each mode retains the essential meaning.
+
+
+![Pacing and Breath — Recording copy vs Editor copy comparison](../images/lesson-09-pacing-diagram.jpg)
 
 ## Practice Exercise — The One-Minute Read
 

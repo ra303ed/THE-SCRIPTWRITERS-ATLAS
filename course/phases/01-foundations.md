@@ -76,6 +76,9 @@ The evidence is visible: two openings and the wording that changes. If the write
 **WHY**  
 The second version gives a viewer a recognizable problem, an investigation, and an observable payoff. It does not promise that one technique will fix every story.
 
+
+![Before and After — Weak vs Strong video idea](../images/lesson-01-before-after.jpg)
+
 ## Common Mistakes
 
 - Treating a topic as if it were already a video idea.
@@ -227,6 +230,9 @@ Grammar is a tool for accuracy, not a school exam. Keep the tense stable when ev
 **Evidence-aware version:** “In this draft, the example now appears first. I still need a read-through to learn whether a new viewer understands it.”
 
 The last version is less triumphant—and more professional—because it separates a change from evidence of its effect.
+
+
+![Sentence Anatomy — Active vs Passive voice structure](../images/lesson-02-sentence-anatomy.jpg)
 
 ## Before / After
 

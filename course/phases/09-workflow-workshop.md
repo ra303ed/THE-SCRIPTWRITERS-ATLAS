@@ -53,6 +53,9 @@ Writing straight through from a title often produces confident narration built o
 
 Stages can repeat. Research may overturn the thesis. A read-through may reveal that a technical example is too dense. A shoot may fail to capture the proof. Loop back to the decision that changed; do not patch an inaccurate line just to preserve the old outline.
 
+
+![Workshop Stages — What enters, what happens, what leaves](../images/lesson-12-workshop-stages.svg)
+
 ## Workshop — A Bounded Scene Experiment
 
 Use the source Atlas’s original Script A as a model project: **one character, one place, three shots, one choice**. This is a proposed exercise, not a claim that the learner or course author has completed it. If you use the example, label constructed footage as a demo and replace any result with what actually happens.

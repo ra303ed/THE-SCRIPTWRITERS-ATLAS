@@ -77,6 +77,9 @@ Submit these artifacts:
 - independent Short, captions, first-frame note, and read timing;
 - reader feedback and postmortem.
 
+
+![Capstone Rubric — What production-ready means](../images/lesson-16-capstone-rubric.svg)
+
 ## Before / After — What “Production-Ready” Means
 
 **NOT READY**  
