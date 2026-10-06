@@ -9,6 +9,8 @@ You will build a decision log around audience knowledge, proof, change, order, p
 ## BY THE END
 You will be able to explain the job of every beat in a short sequence—and remove or move material when it does not help the viewer understand, feel, decide, or act.
 
+![Phase 2 Mind Map — The Scripting Mindset](../images/mindmap-phase-02.svg)
+
 ---
 
 # Lesson 3 — Make the Writer’s Decisions Before You Polish the Lines
@@ -26,6 +28,8 @@ You will be able to explain the job of every beat in a short sequence—and remo
 ## Core Idea
 
 A professional script is a sequence of justified choices. Every beat should earn its position by changing what the viewer knows, expects, feels, or can do.
+
+![Six Decision Questions — WHO, WHAT CHANGES, WHAT'S SUPPORTED, WHAT ORDER, WHAT TO SHOW, WHAT CONTRACT](../images/lesson-03-decisions-before-polish.jpg)
 
 ## Why This Matters
 
@@ -73,6 +77,9 @@ The improved version distinguishes technical progress from story progress. It li
 - Treating a retention graph as proof that a particular sentence caused a viewer to leave.
 - Polishing grammar before discovering that the paragraph belongs in a different video.
 
+
+![Common Mistakes — Lesson 3](../images/common-mistakes-03.svg)
+
 ## How to Apply It
 
 For each outline beat, fill in:
@@ -85,6 +92,9 @@ For each outline beat, fill in:
 - **Cut test:** if removed, what question, evidence, or change disappears?
 
 Then check the whole contract: title/thumbnail → opening → first proof → progression → payoff → optional CTA. Mark [VERIFY] or [SHOOT] instead of smoothing over a gap.
+
+
+![The Beat Test — Before, During, After each beat](../images/lesson-03-beat-test.jpg)
 
 ## Practice Exercise — The Change Test
 
@@ -161,6 +171,9 @@ Now consider a beautiful sentence that contains no proof. It may still earn a pl
 The principle to carry into the next phase is simple: the viewer experiences a sequence of changes, not your outline labels. Make each beat earn its place, and let the evidence—not your attachment to the draft—decide how strongly you can state the answer.
 
 ---
+
+
+![Lesson 3 Takeaway](../images/takeaway-03.svg)
 
 ## MASTERED
 

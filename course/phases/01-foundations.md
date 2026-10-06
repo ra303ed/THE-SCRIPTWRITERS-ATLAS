@@ -9,6 +9,8 @@ You will shape a topic into a viewer-facing idea, then express that idea in clea
 ## BY THE END
 You will have one specific video idea, one honest promise, and a short paragraph that a stranger can understand without you standing beside them to explain it.
 
+![Phase 1 Mind Map — Foundations](../images/mindmap-phase-01.svg)
+
 ---
 
 # Lesson 1 — From a Broad Topic to a Video Idea a Viewer Can Understand
@@ -25,6 +27,8 @@ You will have one specific video idea, one honest promise, and a short paragraph
 ## Core Idea
 
 A topic names a territory. A video idea makes a specific promise about one useful question inside that territory—and has a credible way to answer it.
+
+![From a Broad Topic to a Video Idea — The five-layer funnel: Topic → Question → Audience → Angle → Thesis → Promise](../images/lesson-01-topic-to-idea.jpg)
 
 ## Why This Matters
 
@@ -72,6 +76,9 @@ The evidence is visible: two openings and the wording that changes. If the write
 **WHY**  
 The second version gives a viewer a recognizable problem, an investigation, and an observable payoff. It does not promise that one technique will fix every story.
 
+
+![Before and After — Weak vs Strong video idea](../images/lesson-01-before-after.jpg)
+
 ## Common Mistakes
 
 - Treating a topic as if it were already a video idea.
@@ -80,6 +87,9 @@ The second version gives a viewer a recognizable problem, an investigation, and 
 - Making the promise bigger than the footage, research, or time can support.
 - Choosing a title first and forcing the research to defend it.
 - Confusing a personal opinion with a tested conclusion.
+
+
+![Common Mistakes — Lesson 1](../images/common-mistakes-01.svg)
 
 ## How to Apply It
 
@@ -112,6 +122,9 @@ Stop here and write your version before opening the model answer.
 Other answers can be stronger if their evidence path is real and their promise is narrower. Do not copy the subject if it is not yours; copy the quality of the decisions.
 
 </details>
+
+
+![Practice Exercise — Lesson 1](../images/exercise-01.svg)
 
 ## Mini Checkpoint
 
@@ -176,6 +189,9 @@ The key idea to carry forward is this: a script begins before the first line. It
 
 **Estimated voiceover:** 8–10 minutes · **Practice:** 20 minutes · **Audio:** [listen to Lesson 2](../audio/phase-01-lesson-02.m3u)
 
+
+![Lesson 1 Takeaway](../images/takeaway-01.svg)
+
 ## What You Will Learn
 
 - Move from a private thought to a sentence another person can understand.
@@ -187,6 +203,8 @@ The key idea to carry forward is this: a script begins before the first line. It
 ## Core Idea
 
 A sentence is a small handoff: you put a thought into words so another person can recover it without guessing.
+
+![From Thought to Clear Sentence — Transforming scattered ideas into structured, clear language](../images/lesson-02-thought-to-sentence.jpg)
 
 ## Why This Matters
 
@@ -222,6 +240,9 @@ Grammar is a tool for accuracy, not a school exam. Keep the tense stable when ev
 
 The last version is less triumphant—and more professional—because it separates a change from evidence of its effect.
 
+
+![Sentence Anatomy — Active vs Passive voice structure](../images/lesson-02-sentence-anatomy.jpg)
+
 ## Before / After
 
 **WEAK**  
@@ -241,6 +262,9 @@ The revision names an actor, action, and observable limit. “Better” is not s
 - Replacing repeated useful terms with unnatural synonyms.
 - Hiding who acted behind passive phrasing when responsibility matters.
 - Reading punctuation as decoration instead of thought, relation, and breath.
+
+
+![Common Mistakes — Lesson 2](../images/common-mistakes-02.svg)
 
 ## How to Apply It
 
@@ -320,6 +344,9 @@ When you read, do not mark every pause with punctuation. Listen for the thought 
 Carry this with you: the best sentence is not the one that impresses another writer. It is the one that helps your viewer understand the right thing at the right moment.
 
 ---
+
+
+![Lesson 2 Takeaway](../images/takeaway-02.svg)
 
 ## MASTERED
 

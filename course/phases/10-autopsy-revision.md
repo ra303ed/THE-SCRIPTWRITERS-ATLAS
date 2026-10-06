@@ -9,6 +9,8 @@ You will diagnose a script at sentence, paragraph, beat, and whole-video level. 
 ## BY THE END
 You will produce a documented revision from one draft to a stronger one, explain what changed and why, and identify the next evidence or production test.
 
+![Phase 10 Mind Map](../images/mindmap-phase-10.svg)
+
 ---
 
 # Lesson 13 — Diagnose a Weak Script Before You Rewrite It
@@ -26,6 +28,9 @@ You will produce a documented revision from one draft to a stronger one, explain
 ## Core Idea
 
 A rewrite is useful when it repairs the viewer’s problem and respects the facts—not when it merely sounds more polished.
+
+
+![Diagnose Before You Rewrite — Four diagnostic levels](../images/lesson-13-diagnose-weak-script.jpg)
 
 ## Why This Matters
 
@@ -81,6 +86,9 @@ The rewrite narrows the question, points to evidence, and makes a bounded promis
 **WHY**  
 The improved line connects the next topic to a specific problem. Use it only when the cut and sound test exist; otherwise write the transition your material supports.
 
+
+![Script Autopsy — A deliberately weak draft diagnosed](../images/lesson-13-autopsy-example.svg)
+
 ## Common Mistakes
 
 - Rewriting an entire page when one missing piece of evidence caused the problem.
@@ -90,6 +98,9 @@ The improved line connects the next topic to a specific problem. Use it only whe
 - Calling something “boring” without identifying what the viewer learns—or fails to learn.
 - Scoring a script without writing any evidence or next action.
 - Polishing a line before deciding whether its beat belongs.
+
+
+![Common Mistakes — Lesson 13](../images/common-mistakes-13.svg)
 
 ## How to Apply It
 
@@ -179,6 +190,9 @@ Carry this into your next draft: a good rewrite solves the cause, not the sympto
 
 **Estimated voiceover:** 11–13 minutes · **Practice:** 45 minutes
 
+
+![Lesson 13 Takeaway](../images/takeaway-13.svg)
+
 ## What You Will Learn
 
 - Revise from high-cost decisions to final polish.
@@ -190,6 +204,9 @@ Carry this into your next draft: a good rewrite solves the cause, not the sympto
 ## Core Idea
 
 Revision is a sequence of focused inspections. Fix the idea and structure before the sentence-level polish, and revisit an earlier pass whenever new evidence changes the claim.
+
+
+![Revision Priority Ladder — Fix the biggest problem first](../images/lesson-14-revise-right-order.jpg)
 
 ## Why This Matters
 
@@ -233,6 +250,9 @@ Every note should say **what is wrong → why it matters → how to fix it**. A 
 **USEFUL LOG**  
 “Moved the first failed cut to 0:06 so the question becomes visible sooner. Trade-off: less context about the tool. Test: ask a new viewer what problem the video will solve after the first 20 seconds.”
 
+
+![The Ten Revision Passes — From structure to polish](../images/lesson-14-ten-passes.svg)
+
 ## Common Mistakes
 
 - Running all ten passes at once and changing words without knowing the goal.
@@ -242,6 +262,9 @@ Every note should say **what is wrong → why it matters → how to fix it**. A 
 - Accepting vague praise or harsh criticism without asking for an example.
 - Making revisions but keeping no record of what they changed or cost.
 - Using post-publication analytics alone to claim that one line caused an outcome.
+
+
+![Common Mistakes — Lesson 14](../images/common-mistakes-14.svg)
 
 ## How to Apply It
 
@@ -327,6 +350,9 @@ A professional writer does not ask only, “Is this better?” They ask, “Bett
 Carry this forward: revision is not polishing. It is decision-making made visible. Work from the highest-cost problem to the smallest, and be ready to go back when truth or production changes the script.
 
 ---
+
+
+![Lesson 14 Takeaway](../images/takeaway-14.svg)
 
 ## MASTERED
 

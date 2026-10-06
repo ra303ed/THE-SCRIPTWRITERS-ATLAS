@@ -9,6 +9,8 @@ You will learn how desire, resistance, new information, choice, and consequence 
 ## BY THE END
 You will be able to map a real change, connect beats with honest cause-and-effect, select a fitting structure, and explain what the audience learns at each turn.
 
+![Phase 3 Mind Map — Story & Structure](../images/mindmap-phase-03.svg)
+
 ---
 
 # Lesson 4 — Build Movement from Cause, Choice, and Consequence
@@ -26,6 +28,8 @@ You will be able to map a real change, connect beats with honest cause-and-effec
 ## Core Idea
 
 A story makes change legible: someone or something wants a result, meets resistance, makes a choice, and lives with a consequence.
+
+![Build Movement — Desire → Obstacle → Attempt → New Information → Choice → Consequence → Change](../images/lesson-04-cause-choice-consequence.jpg)
 
 ## Why This Matters
 
@@ -62,6 +66,9 @@ The central turn is not “the image got better.” It is: **the image got more 
 **WHY**  
 The second version connects the technical fix to a deeper problem and a revised decision. It contains a setup, a turn, and a visible payoff. Use its details only as a hypothetical or after making the footage.
 
+
+![Setup and Payoff — Plant, Expect, Open, Answer, Close](../images/lesson-04-setup-payoff.jpg)
+
 ## Common Mistakes
 
 - Treating chronology as story without showing cause, resistance, or change.
@@ -71,6 +78,9 @@ The second version connects the technical fix to a deeper problem and a revised 
 - Opening many loops and forgetting to close them.
 - Forcing “but” or “therefore” where nothing is in conflict or caused by the prior beat.
 - Calling a list a story when the options are genuinely independent.
+
+
+![Common Mistakes — Lesson 4](../images/common-mistakes-04.svg)
 
 ## How to Apply It
 
@@ -92,6 +102,9 @@ Use a real editing, study, repair, or research mistake. Fill in: **WANT / OBSTAC
 A strong map makes the revised choice necessary: the first attempt reveals something that changes the next action. If the second version is just a more dramatic retelling of the same sequence, it has not added causality. A list of steps may be the more honest form for a routine tutorial.
 
 </details>
+
+
+![Practice Exercise — Lesson 4](../images/exercise-04.svg)
 
 ## Mini Checkpoint
 
@@ -156,6 +169,9 @@ Your takeaway is that story is change made legible. The viewer should be able to
 
 **Estimated voiceover:** 10–12 minutes · **Practice:** 30 minutes · **Audio:** [listen to Lesson 5](../audio/phase-03-lesson-05.m3u)
 
+
+![Lesson 4 Takeaway](../images/takeaway-04.svg)
+
 ## What You Will Learn
 
 - Select a structure based on the kind of question and evidence you have.
@@ -165,6 +181,8 @@ Your takeaway is that story is change made legible. The viewer should be able to
 - Avoid treating familiar structures as magic formulas.
 
 ## Core Idea
+
+![Choose a Structure — Educational vs Narrative structures](../images/lesson-05-structure-fits-material.jpg)
 
 Structure is a route through the material. Choose the route that helps this viewer understand this promise—not the route that imitates a successful video’s surface.
 
@@ -205,6 +223,9 @@ The source Atlas reads the accessible caption sequence as a structured lesson: i
 **WHY**  
 The second follows a goal, action, and test. If there is no genuine uncertain outcome, do not add a false suspense arc. If the process did reveal a real obstacle, a narrative shape may be more informative.
 
+
+![Format Selector — 9 video formats with core movements](../images/lesson-05-format-selector.jpg)
+
 ## Common Mistakes
 
 - Choosing a structure because a creator you admire used it.
@@ -213,6 +234,9 @@ The second follows a goal, action, and test. If there is no genuine uncertain ou
 - Making a tutorial so suspenseful that viewers do not know what to do.
 - Leaving a counterargument until the end even when it changes the meaning of the opening claim.
 - Treating a midpoint as a clock position; a meaningful turn depends on new information, not halfway runtime.
+
+
+![Common Mistakes — Lesson 5](../images/common-mistakes-05.svg)
 
 ## How to Apply It
 
@@ -289,6 +313,9 @@ Ask one more question: what would make this structure fail for my viewer? A begi
 The takeaway: a structure is a promise about how information will unfold. Choose the one that lets the viewer follow the evidence, feel the real change, and receive a complete answer. The shape should come from the material. It should not ask the material to pretend to be something else.
 
 ---
+
+
+![Lesson 5 Takeaway](../images/takeaway-05.svg)
 
 ## MASTERED
 

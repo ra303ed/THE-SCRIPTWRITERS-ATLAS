@@ -9,6 +9,8 @@ You will shape perspective, make a claim that survives informed resistance, cont
 ## BY THE END
 You will be able to create different defensible versions from the same verified facts, select one, and explain both its focus and its omissions.
 
+![Phase 11 Mind Map](../images/mindmap-phase-11.svg)
+
 ---
 
 # Lesson 15 — Control the Lens, Emphasis, and Omission
@@ -26,6 +28,9 @@ You will be able to create different defensible versions from the same verified 
 ## Core Idea
 
 Advanced craft is purposeful control. Every inclusion, omission, reveal, pause, and emphasis changes what the audience believes next.
+
+
+![Control the Lens — One event, multiple honest lenses, choose one](../images/lesson-15-lens-emphasis-omission.jpg)
 
 ## Why This Matters
 
@@ -83,6 +88,9 @@ Each can be valid. None can borrow facts from another lens without checking. If 
 **WHY**  
 The improved advice identifies its use case and boundary. It persuades by surviving a reasonable counterexample, not by pretending one workflow fits every production.
 
+
+![Persuade Without Cornering — Position, Evidence, Alternative, Qualification](../images/lesson-15-persuasion.svg)
+
 ## Common Mistakes
 
 - Treating a strong personal voice as permission to overstate.
@@ -92,6 +100,9 @@ The improved advice identifies its use case and boundary. It persuades by surviv
 - Telling the audience what to feel before letting them inspect the evidence.
 - Cramming tutorial, essay, personal story, and sales argument into one promise.
 - Believing a strong ending must be surprising; a precise answer can be more satisfying.
+
+
+![Common Mistakes — Lesson 15](../images/common-mistakes-15.svg)
 
 ## How to Apply It
 
@@ -174,6 +185,9 @@ Ask a skeptical reader to challenge your thesis. Do not pick the easiest objecti
 Carry this into the final project: the lens decides which question you answer, the evidence decides how strongly you can answer it, and restraint decides what you do not ask the viewer to believe. Advanced craft is not more decoration. It is control with accountability.
 
 ---
+
+
+![Lesson 15 Takeaway](../images/takeaway-15.svg)
 
 ## MASTERED
 

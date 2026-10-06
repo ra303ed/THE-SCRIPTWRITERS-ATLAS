@@ -9,6 +9,8 @@ You will design an independent Short, build a long-form progression, and choose 
 ## BY THE END
 You will create two related but complete scripts: one short piece that stands alone and one longer version that earns its extra time with proof, depth, and nuance.
 
+![Phase 08 Mind Map](../images/mindmap-phase-08.svg)
+
 ---
 
 # Lesson 11 — Change the Architecture, Not Just the Runtime
@@ -26,6 +28,9 @@ You will create two related but complete scripts: one short piece that stands al
 ## Core Idea
 
 A Short and a long-form video need different information architecture. The Short makes one complete movement; long-form earns time by developing a larger or changing question.
+
+
+![Long-Form vs Short-Form — Change the Architecture, Not Just the Runtime](../images/lesson-11-long-short-form.jpg)
 
 ## Why This Matters
 
@@ -76,6 +81,9 @@ Take an eight-minute script, delete every other sentence, speak twice as fast, a
 **WHY**  
 The second version preserves a complete question, example, turn, and payoff. It does not require the long version to make sense.
 
+
+![Compress vs Expand — Select, don't speed up](../images/lesson-11-compress-expand.svg)
+
 ## Common Mistakes
 
 - Treating a 60-second cut as a Short simply because it is vertical.
@@ -85,6 +93,9 @@ The second version preserves a complete question, example, turn, and payoff. It 
 - Expanding a short idea by repeating definitions or adding unrelated tips.
 - Designing a 30-minute script as six copies of the same 5-minute section.
 - Using runtime ranges as platform or algorithm rules.
+
+
+![Common Mistakes — Lesson 11](../images/common-mistakes-11.svg)
 
 ## How to Apply It
 
@@ -165,6 +176,9 @@ Your assignment is to make the Short from your capstone and show it to someone w
 Carry this principle forward: a short script is not a long script with missing paragraphs. It is a new architecture built around one complete movement. Long-form earns its duration by adding meaningful evidence, not by extending the sentence count.
 
 ---
+
+
+![Lesson 11 Takeaway](../images/takeaway-11.svg)
 
 ## MASTERED
 

@@ -9,6 +9,8 @@ You will assign each channel a job, write shootable visual proof, use sound and 
 ## BY THE END
 You will turn one script beat into a production-ready AV plan another person can follow without guessing what the shot is meant to prove.
 
+![Phase 07 Mind Map](../images/mindmap-phase-07.svg)
+
 ---
 
 # Lesson 10 — Write for Image, Sound, and Edit—not Just for the Page
@@ -26,6 +28,9 @@ You will turn one script beat into a production-ready AV plan another person can
 ## Core Idea
 
 A video script coordinates words, evidence, images, sound, and timing so the viewer can understand and feel the intended change.
+
+
+![Write for Image, Sound, and Edit — Script → Visual → Audio → Edit → Viewer Experience](../images/lesson-10-visual-audio-edit.jpg)
 
 ## Why This Matters
 
@@ -67,6 +72,9 @@ If the footage does not show this problem, rewrite the line or create a clearly 
 **WHY**  
 The second note names the asset, action, proof, and rights question. It does not ask the editor to guess what “cinematic” means.
 
+
+![Visual Proof Types — Prove, Compare, Reveal, Orient, Demonstrate, Create Room](../images/lesson-10-visual-proof.jpg)
+
 ## Common Mistakes
 
 - Using attractive B-roll that does not support the sentence.
@@ -76,6 +84,9 @@ The second note names the asset, action, proof, and rights question. It does not
 - Using music to tell viewers a result is triumphant before they see it.
 - Leaving production notes such as “make it pop” with no practical meaning.
 - Mixing the performer’s spoken words with long technical tables and source notes.
+
+
+![Common Mistakes — Lesson 10](../images/common-mistakes-10.svg)
 
 ## How to Apply It
 
@@ -163,6 +174,9 @@ The assignment is the first minute of your capstone. Every important claim needs
 Here is the principle: the script is a plan for a viewer’s experience. Words, image, audio, and editing can carry different parts of the meaning. The strongest production script tells each collaborator what matters while leaving enough space for good choices on set and in the edit.
 
 ---
+
+
+![Lesson 10 Takeaway](../images/takeaway-10.svg)
 
 ## MASTERED
 

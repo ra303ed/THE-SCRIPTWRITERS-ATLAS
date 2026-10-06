@@ -9,6 +9,8 @@ You will write hooks from different mechanisms, create and close meaningful open
 ## BY THE END
 You will have three genuinely different openings for one idea, a chosen opening tied to real proof, and a beat map showing where the video pays its promise.
 
+![Phase 05 Mind Map](../images/mindmap-phase-05.svg)
+
 ---
 
 # Lesson 7 — Earn Attention, Then Pay It Back
@@ -26,6 +28,9 @@ You will have three genuinely different openings for one idea, a chosen opening 
 ## Core Idea
 
 A hook gives the right viewer a reason to continue and a fair expectation of what the video will deliver. Retention is earned by meaningful progress, not by noise or delay.
+
+
+![Hook Mechanisms — Scene, Question, Contradiction, Demonstration, Stakes, Claim, Visual](../images/lesson-07-earn-attention.jpg)
 
 ## Why This Matters
 
@@ -74,6 +79,9 @@ The Atlas’s Isaac thumbnail analysis studies a useful relationship: a thumbnai
 **WHY**  
 The better opening reveals enough to make the problem concrete, then gives a precise reason to inspect the next shot. It does not conceal an ordinary answer just to force a longer watch.
 
+
+![Open Loops and Micro-Payoffs — Question to practical payoff timeline](../images/lesson-07-open-loop.jpg)
+
 ## Common Mistakes
 
 - Equating a loud opening with a strong opening.
@@ -83,6 +91,9 @@ The better opening reveals enough to make the problem concrete, then gives a pre
 - Delaying the first useful answer until the end.
 - Using visual interruption without a new piece of information.
 - Treating retention metrics as proof of the cause of a viewer’s behavior.
+
+
+![Common Mistakes — Lesson 7](../images/common-mistakes-07.svg)
 
 ## How to Apply It
 
@@ -115,6 +126,9 @@ For each, state the viewer, first proof, information you are holding, and how th
 Each is a different contract. A quiet scene works only if the image carries a relevant question.
 
 </details>
+
+
+![Practice Exercise — Lesson 7](../images/exercise-07.svg)
 
 ## Mini Checkpoint
 
@@ -177,6 +191,9 @@ Your assignment is to test the contract with a person who has not seen the draft
 Carry this principle forward: attention is borrowed moment by moment. Give a useful reason to continue, show progress, and close the questions you open. A good hook does not trick a viewer into staying. It helps the right viewer recognize that the video is for them.
 
 ---
+
+
+![Lesson 7 Takeaway](../images/takeaway-07.svg)
 
 ## MASTERED
 

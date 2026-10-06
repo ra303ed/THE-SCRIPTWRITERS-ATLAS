@@ -9,6 +9,8 @@ You will evaluate ideas, identify what a viewer needs, research efficiently, tra
 ## BY THE END
 You will have a source-backed claim ledger, one credible counterpoint, and an outline that moves from the viewer’s question to a bounded answer.
 
+![Phase 04 Mind Map](../images/mindmap-phase-04.svg)
+
 ---
 
 # Lesson 6 — Find the Question, Check the Claim, Build the Evidence Path
@@ -26,6 +28,9 @@ You will have a source-backed claim ledger, one credible counterpoint, and an ou
 ## Core Idea
 
 Research is not collecting everything related to a subject. It is finding and checking the information that can answer a specific viewer’s question.
+
+
+![Evidence Verification — Observation, Test Result, External Fact, Inference, Opinion](../images/lesson-06-question-claim-evidence.jpg)
 
 ## Why This Matters
 
@@ -97,6 +102,9 @@ The source Atlas’s analysis of Ali Abdaal’s *How to Invest for Beginners* hi
 **WHY**  
 The better version names the scope and avoids claiming that a single result proves causation. It may still need a source or more context, but its certainty matches its evidence.
 
+
+![Source Matrix — What each source can and cannot establish](../images/lesson-06-source-matrix.jpg)
+
 ## Common Mistakes
 
 - Searching broad keywords before defining the question.
@@ -106,6 +114,9 @@ The better version names the scope and avoids claiming that a single result prov
 - Listing research in the order you found it instead of the order the viewer needs it.
 - Hiding a counterpoint in a final disclaimer after the audience has already formed a false impression.
 - Researching indefinitely because no stop rule defines what decision the next source could change.
+
+
+![Common Mistakes — Lesson 6](../images/common-mistakes-06.svg)
 
 ## How to Apply It
 
@@ -187,6 +198,9 @@ There is no need to apologize for uncertainty when the uncertainty is real. “T
 Your goal is not to make a script sound certain. Your goal is to make the viewer’s understanding more accurate. Research earns its place when it changes the question, supports the answer, shows a useful alternative, or helps someone act. Everything else can wait in the notes.
 
 ---
+
+
+![Lesson 6 Takeaway](../images/takeaway-06.svg)
 
 ## MASTERED
 
