@@ -1,0 +1,811 @@
+const PHASES = [
+  {
+    number: 1,
+    title: "Foundations",
+    file: "course/phases/01-foundations.md",
+    lessons: [
+      { id: "lesson-01", number: 1, title: "From a Broad Topic to a Video Idea a Viewer Can Understand" },
+      { id: "lesson-02", number: 2, title: "From Thought to Clear Sentence" },
+    ],
+  },
+  {
+    number: 2,
+    title: "The Scripting Mindset",
+    file: "course/phases/02-scripting-mindset.md",
+    lessons: [{ id: "lesson-03", number: 3, title: "Make the Writer’s Decisions Before You Polish the Lines" }],
+  },
+  {
+    number: 3,
+    title: "Story and Structure",
+    file: "course/phases/03-story-and-structure.md",
+    lessons: [
+      { id: "lesson-04", number: 4, title: "Build Movement from Cause, Choice, and Consequence" },
+      { id: "lesson-05", number: 5, title: "Choose a Structure That Fits the Material" },
+    ],
+  },
+  {
+    number: 4,
+    title: "Ideas, Audience, and Research",
+    file: "course/phases/04-ideas-research.md",
+    lessons: [{ id: "lesson-06", number: 6, title: "Find the Question, Check the Claim, Build the Evidence Path" }],
+  },
+  {
+    number: 5,
+    title: "Hooks and Earned Retention",
+    file: "course/phases/05-hooks-retention.md",
+    lessons: [{ id: "lesson-07", number: 7, title: "Earn Attention, Then Pay It Back" }],
+  },
+  {
+    number: 6,
+    title: "The Human Ear",
+    file: "course/phases/06-human-voice.md",
+    lessons: [
+      { id: "lesson-08", number: 8, title: "Build a Human Voice Without Performing One" },
+      { id: "lesson-09", number: 9, title: "Write for Breath, Rhythm, and Comprehension" },
+    ],
+  },
+  {
+    number: 7,
+    title: "Visual and Audio Thinking",
+    file: "course/phases/07-visual-audio.md",
+    lessons: [{ id: "lesson-10", number: 10, title: "Write for Image, Sound, and Edit—not Just for the Page" }],
+  },
+  {
+    number: 8,
+    title: "Long-Form and Short-Form",
+    file: "course/phases/08-long-short.md",
+    lessons: [{ id: "lesson-11", number: 11, title: "Change the Architecture, Not Just the Runtime" }],
+  },
+  {
+    number: 9,
+    title: "The Professional Workflow",
+    file: "course/phases/09-workflow-workshop.md",
+    lessons: [{ id: "lesson-12", number: 12, title: "The Brief-to-Script Workshop" }],
+  },
+  {
+    number: 10,
+    title: "Autopsy and Revision",
+    file: "course/phases/10-autopsy-revision.md",
+    lessons: [
+      { id: "lesson-13", number: 13, title: "Diagnose a Weak Script Before You Rewrite It" },
+      { id: "lesson-14", number: 14, title: "Revise in the Right Order and Learn from Feedback" },
+    ],
+  },
+  {
+    number: 11,
+    title: "Advanced Craft",
+    file: "course/phases/11-advanced-craft.md",
+    lessons: [{ id: "lesson-15", number: 15, title: "Control the Lens, Emphasis, and Omission" }],
+  },
+  {
+    number: 12,
+    title: "Professional Capstone",
+    file: "course/phases/12-capstone.md",
+    lessons: [{ id: "lesson-16", number: 16, title: "Build a Production-Ready Script Package" }],
+  },
+];
+
+const RESOURCES = [
+  { id: "roadmap", label: "Learning Roadmap", file: "course/ROADMAP.md", icon: "↗" },
+  { id: "audio", label: "Narration Audio", file: "course/audio/README.md", icon: "♫" },
+  { id: "workbook", label: "Practical Workbook", file: "course/WORKBOOK.md", icon: "▤" },
+  { id: "cases", label: "Case-Study Library", file: "course/CASE-STUDY-LIBRARY.md", icon: "◉" },
+  { id: "worked", label: "Worked Scripts", file: "course/WORKED-SCRIPTS.md", icon: "▧" },
+  { id: "reference", label: "Reference Desk", file: "course/REFERENCE.md", icon: "⌕" },
+  { id: "source-map", label: "Source Map", file: "course/SOURCE-MAP.md", icon: "⌗" },
+  { id: "final-arabic", label: "Final Arabic Voiceover", file: "course/FINAL-ARABIC-VOICEOVER.md", icon: "◌" },
+];
+
+const ALL_LESSONS = PHASES.flatMap((phase) =>
+  phase.lessons.map((lesson) => ({ ...lesson, phaseNumber: phase.number, phaseTitle: phase.title, file: phase.file }))
+);
+const lessonById = new Map(ALL_LESSONS.map((lesson) => [lesson.id, lesson]));
+const resourceById = new Map(RESOURCES.map((resource) => [resource.id, resource]));
+const resourceIdByFile = new Map(RESOURCES.map((resource) => [resource.file, resource.id]));
+const phaseByFile = new Map(PHASES.map((phase) => [phase.file, phase]));
+const markdownCache = new Map();
+const AUDIO_PART_COUNTS = { 1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5 };
+const PROGRESS_KEY = "scriptwriters-atlas-completed-v1";
+let searchIndex = [];
+let searchReady = false;
+let searchTask = null;
+
+const app = document.getElementById("app");
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function slugify(value) {
+  return value
+    .replace(/`([^`]*)`/g, "$1")
+    .toLowerCase()
+    .trim()
+    .replace(/[^\p{L}\p{N} _-]/gu, "")
+    .replace(/\s+/g, "-")
+    .replace(/-{2,}/g, "-");
+}
+
+function readProgress() {
+  try {
+    const value = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+    return value && typeof value === "object" ? value : {};
+  } catch {
+    return {};
+  }
+}
+
+function isComplete(id) {
+  return Boolean(readProgress()[id]);
+}
+
+function setComplete(id, value) {
+  const progress = readProgress();
+  if (value) progress[id] = true;
+  else delete progress[id];
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+function completionCount() {
+  const progress = readProgress();
+  return ALL_LESSONS.filter((lesson) => progress[lesson.id]).length;
+}
+
+function routeUrl(kind, id, hash = "") {
+  const params = new URLSearchParams();
+  params.set(kind === "lesson" ? "lesson" : "page", id);
+  return `/?${params.toString()}${hash || ""}`;
+}
+
+function currentRoute() {
+  const params = new URLSearchParams(window.location.search);
+  const lessonId = params.get("lesson");
+  if (lessonId && lessonById.has(lessonId)) return { kind: "lesson", id: lessonId };
+  const pageId = params.get("page");
+  if (pageId && (pageId === "start" || resourceById.has(pageId))) return { kind: "page", id: pageId };
+  return { kind: "page", id: "start" };
+}
+
+async function loadMarkdown(file) {
+  if (markdownCache.has(file)) return markdownCache.get(file);
+  const promise = fetch(`/${file}`, { cache: "force-cache" }).then(async (response) => {
+    if (!response.ok) throw new Error(`Could not load ${file} (${response.status})`);
+    return response.text();
+  });
+  markdownCache.set(file, promise);
+  try {
+    return await promise;
+  } catch (error) {
+    markdownCache.delete(file);
+    throw error;
+  }
+}
+
+function resolveMarkdownLink(href, sourceFile) {
+  if (/^(https?:|mailto:|tel:)/i.test(href) || href.startsWith("//")) return href;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(href)) return "#";
+  const base = new URL(`/${sourceFile}`, window.location.origin);
+  let resolved;
+  try {
+    resolved = new URL(href, base);
+  } catch {
+    return href;
+  }
+  if (resolved.origin !== window.location.origin) return href;
+  const file = decodeURIComponent(resolved.pathname.replace(/^\//, ""));
+  const hash = resolved.hash || "";
+
+  const audioPlaylist = file.match(/^course\/audio\/phase-\d{2}-lesson-(\d{2})\.m3u$/);
+  if (audioPlaylist) {
+    const lessonId = `lesson-${audioPlaylist[1]}`;
+    if (lessonById.has(lessonId)) return `/?lesson=${lessonId}&audio=1${hash}`;
+  }
+
+  if (file.endsWith(".md")) {
+    const resourceId = resourceIdByFile.get(file);
+    if (resourceId) return routeUrl("page", resourceId, hash);
+    if (file === "course/README.md") return routeUrl("page", "start", hash);
+    const phase = phaseByFile.get(file);
+    if (phase) {
+      let selected = phase.lessons[0];
+      if (hash) {
+        const targetSlug = decodeURIComponent(hash.slice(1));
+        selected = phase.lessons.find((lesson) => slugify(lesson.title) === targetSlug) || selected;
+      }
+      return routeUrl("lesson", selected.id, hash);
+    }
+  }
+
+  return `/${file}${resolved.search}${hash}`;
+}
+
+function inlineMarkdown(markdown, sourceFile) {
+  const tokens = [];
+  const stash = (html) => {
+    const index = tokens.push(html) - 1;
+    return `\uE000${index}\uE001`;
+  };
+  let text = markdown.replace(/\\([\\`*_{}\[\]()#+.!-])/g, "$1");
+
+  text = text.replace(/`([^`]+)`/g, (_match, code) => stash(`<code>${escapeHtml(code)}</code>`));
+  text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt, rawHref) => {
+    const href = escapeHtml(resolveMarkdownLink(rawHref.trim(), sourceFile));
+    return stash(`<img src="${href}" alt="${escapeHtml(alt)}" loading="lazy">`);
+  });
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, rawHref) => {
+    const href = resolveMarkdownLink(rawHref.trim(), sourceFile);
+    const externalWeb = /^(https?:|\/\/)/i.test(href);
+    const appRoute = href.startsWith("/?") || href.startsWith("?");
+    const safeHref = escapeHtml(href);
+    const target = externalWeb
+      ? ' target="_blank" rel="noreferrer noopener"'
+      : appRoute
+        ? ' data-app-link="true"'
+        : "";
+    return stash(`<a href="${safeHref}"${target}>${inlineMarkdown(label, sourceFile)}</a>`);
+  });
+
+  text = escapeHtml(text);
+  text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  text = text.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+  text = text.replace(/~~(.+?)~~/g, "<del>$1</del>");
+  text = text.replace(/\uE000(\d+)\uE001/g, (_match, index) => tokens[Number(index)] || "");
+  return text;
+}
+
+function splitTableRow(line) {
+  return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
+}
+
+function isBlockStart(lines, index) {
+  const line = lines[index] || "";
+  return (
+    /^#{1,6}\s/.test(line) ||
+    /^\s*---+\s*$/.test(line) ||
+    /^\s*```/.test(line) ||
+    /^\s*>/.test(line) ||
+    /^\s*<details\b/i.test(line) ||
+    /^\s*\|/.test(line) ||
+    /^\s*(?:[-*+]\s+|\d+[.)]\s+)/.test(line)
+  );
+}
+
+function renderMarkdown(markdown, sourceFile) {
+  const lines = markdown.replace(/\r\n?/g, "\n").split("\n");
+  const output = [];
+  let index = 0;
+
+  while (index < lines.length) {
+    const raw = lines[index];
+    const line = raw.trimEnd();
+    if (!line.trim()) {
+      index += 1;
+      continue;
+    }
+
+    const detailsStart = line.match(/^<details><summary>(.*?)<\/summary>\s*$/i);
+    if (detailsStart) {
+      const body = [];
+      index += 1;
+      while (index < lines.length && !/^\s*<\/details>\s*$/i.test(lines[index])) {
+        body.push(lines[index]);
+        index += 1;
+      }
+      if (index < lines.length) index += 1;
+      output.push(`<details class="answer-reveal"><summary>${inlineMarkdown(detailsStart[1], sourceFile)}</summary>${renderMarkdown(body.join("\n"), sourceFile)}</details>`);
+      continue;
+    }
+
+    if (/^\s*```/.test(line)) {
+      const codeLines = [];
+      index += 1;
+      while (index < lines.length && !/^\s*```/.test(lines[index])) {
+        codeLines.push(lines[index]);
+        index += 1;
+      }
+      if (index < lines.length) index += 1;
+      output.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+      continue;
+    }
+
+    const heading = line.match(/^(#{1,6})\s+(.+?)\s*#*$/);
+    if (heading) {
+      const level = heading[1].length;
+      const title = heading[2].trim();
+      output.push(`<h${level} id="${escapeHtml(slugify(title))}">${inlineMarkdown(title, sourceFile)}</h${level}>`);
+      index += 1;
+      continue;
+    }
+
+    if (/^\s*(?:---+|\*\*\*|___+)\s*$/.test(line)) {
+      output.push("<hr>");
+      index += 1;
+      continue;
+    }
+
+    if (/^\s*>/.test(line)) {
+      const quote = [];
+      while (index < lines.length && /^\s*>/.test(lines[index])) {
+        quote.push(lines[index].replace(/^\s*>\s?/, ""));
+        index += 1;
+      }
+      output.push(`<blockquote>${renderMarkdown(quote.join("\n"), sourceFile)}</blockquote>`);
+      continue;
+    }
+
+    if (/^\s*\|/.test(line) && index + 1 < lines.length && /^\s*\|?\s*:?-{3,}/.test(lines[index + 1])) {
+      const header = splitTableRow(line);
+      index += 2;
+      const rows = [];
+      while (index < lines.length && /^\s*\|/.test(lines[index])) {
+        rows.push(splitTableRow(lines[index]));
+        index += 1;
+      }
+      const thead = `<thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell, sourceFile)}</th>`).join("")}</tr></thead>`;
+      const tbody = `<tbody>${rows.map((row) => `<tr>${header.map((_cell, cellIndex) => `<td>${inlineMarkdown(row[cellIndex] || "", sourceFile)}</td>`).join("")}</tr>`).join("")}</tbody>`;
+      output.push(`<div class="table-scroll"><table>${thead}${tbody}</table></div>`);
+      continue;
+    }
+
+    const listStart = line.match(/^\s*(?:([-*+])\s+|(\d+)[.)]\s+)/);
+    if (listStart) {
+      const ordered = Boolean(listStart[2]);
+      const tag = ordered ? "ol" : "ul";
+      const items = [];
+      while (index < lines.length) {
+        const itemMatch = lines[index].match(/^\s*(?:([-*+])\s+|(\d+)[.)]\s+)(.*)$/);
+        if (!itemMatch || Boolean(itemMatch[2]) !== ordered) break;
+        items.push(`<li>${inlineMarkdown(itemMatch[3], sourceFile)}</li>`);
+        index += 1;
+      }
+      output.push(`<${tag}>${items.join("")}</${tag}>`);
+      continue;
+    }
+
+    const paragraph = [];
+    while (index < lines.length && lines[index].trim() && !isBlockStart(lines, index)) {
+      paragraph.push(lines[index]);
+      index += 1;
+    }
+    if (!paragraph.length) {
+      output.push(`<p>${inlineMarkdown(line, sourceFile)}</p>`);
+      index += 1;
+      continue;
+    }
+    const html = paragraph.map((part) => {
+      const hardBreak = /\s{2,}$/.test(part);
+      return `${inlineMarkdown(part.trimEnd(), sourceFile)}${hardBreak ? "<br>" : ""}`;
+    }).join(" ");
+    output.push(`<p>${html}</p>`);
+  }
+
+  return output.join("\n");
+}
+
+function extractLesson(markdown, lessonNumber) {
+  const matches = [...markdown.matchAll(/^# Lesson (\d+) — (.+)$/gm)];
+  const targetIndex = matches.findIndex((match) => Number(match[1]) === lessonNumber);
+  if (targetIndex < 0) throw new Error(`Lesson ${lessonNumber} was not found in its phase file.`);
+  const firstLessonStart = matches[0].index;
+  const start = matches[targetIndex].index;
+  const end = targetIndex + 1 < matches.length ? matches[targetIndex + 1].index : markdown.length;
+  return {
+    intro: markdown.slice(0, firstLessonStart).trim(),
+    content: markdown.slice(start, end).trim(),
+    title: matches[targetIndex][2].trim(),
+  };
+}
+
+function textOnly(markdown) {
+  return markdown
+    .replace(/<details[^>]*>|<\/details>|<summary>|<\/summary>/gi, " ")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/`{1,3}/g, " ")
+    .replace(/[#>*_~|]/g, " ")
+    .replace(/\[[A-Z /_-]+\]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getPageSource(id) {
+  if (id === "start") return { title: "Start Here", file: "course/README.md", type: "home" };
+  const resource = resourceById.get(id);
+  if (resource) return { title: resource.label, file: resource.file, type: "resource" };
+  return null;
+}
+
+function sidebarMarkup(route) {
+  const activeLesson = route.kind === "lesson" ? route.id : "";
+  const activePage = route.kind === "page" ? route.id : "";
+  const progress = completionCount();
+  const percent = Math.round((progress / ALL_LESSONS.length) * 100);
+
+  const phaseGroups = PHASES.map((phase) => {
+    const open = phase.lessons.some((lesson) => lesson.id === activeLesson) ? " open" : "";
+    const lessons = phase.lessons.map((lesson) => {
+      const done = isComplete(lesson.id);
+      return `<a class="lesson-link${activeLesson === lesson.id ? " active" : ""}${done ? " completed" : ""}" href="${routeUrl("lesson", lesson.id)}" data-app-link="true" data-route="lesson:${lesson.id}">
+        <span class="lesson-number">${String(lesson.number).padStart(2, "0")}</span>
+        <span class="lesson-label">${escapeHtml(lesson.title)}</span>
+        <span class="lesson-state" aria-label="${done ? "Completed" : "Not completed"}">${done ? "✓" : ""}</span>
+      </a>`;
+    }).join("");
+    return `<details class="phase-nav"${open}>
+      <summary><span class="phase-nav-number">${String(phase.number).padStart(2, "0")}</span><span>${escapeHtml(phase.title)}</span><span class="chevron">⌄</span></summary>
+      <div class="phase-lessons">${lessons}</div>
+    </details>`;
+  }).join("");
+
+  const resourceLinks = RESOURCES.filter((resource) => resource.id !== "final-arabic").map((resource) =>
+    `<a class="resource-link${activePage === resource.id ? " active" : ""}" href="${routeUrl("page", resource.id)}" data-app-link="true" data-route="page:${resource.id}"><span class="resource-icon">${resource.icon}</span>${escapeHtml(resource.label)}</a>`
+  ).join("");
+  const finalLink = RESOURCES.find((resource) => resource.id === "final-arabic");
+
+  return `<aside class="sidebar" id="sidebar" aria-label="Course navigation">
+    <a class="brand" href="${routeUrl("page", "start")}" data-app-link="true" data-route="page:start">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="brand-copy"><strong>THE SCRIPTWRITER’S</strong><em>ATLAS</em></span>
+    </a>
+    <div class="sidebar-intro">A practical course in writing video scripts</div>
+    <div class="progress-card">
+      <div class="progress-heading"><span>YOUR PROGRESS</span><strong>${progress}<small> / ${ALL_LESSONS.length}</small></strong></div>
+      <div class="progress-track" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100" aria-label="Course completion"><span style="width:${percent}%"></span></div>
+      <div class="progress-caption">${percent}% of core lessons complete</div>
+    </div>
+    <nav class="course-nav">
+      <div class="nav-section-label">GET ORIENTED</div>
+      <a class="nav-link${activePage === "start" ? " active" : ""}" href="${routeUrl("page", "start")}" data-app-link="true" data-route="page:start"><span class="nav-icon">⌂</span>Start Here</a>
+      <a class="nav-link${activePage === "roadmap" ? " active" : ""}" href="${routeUrl("page", "roadmap")}" data-app-link="true" data-route="page:roadmap"><span class="nav-icon">↗</span>Learning Roadmap</a>
+      <div class="nav-section-label course-label">CORE COURSE <span>12 PHASES</span></div>
+      ${phaseGroups}
+      <div class="nav-section-label tools-label">TOOLS &amp; STUDY</div>
+      ${resourceLinks}
+      <a class="final-link${activePage === "final-arabic" ? " active" : ""}" href="${routeUrl("page", finalLink.id)}" data-app-link="true" data-route="page:${finalLink.id}"><span class="final-dot">◎</span><span>${escapeHtml(finalLink.label)}<small>Read last</small></span></a>
+    </nav>
+    <div class="sidebar-foot"><span class="status-dot"></span>Static · evidence-led</div>
+  </aside>`;
+}
+
+function routeMeta(route) {
+  if (route.kind === "lesson") {
+    const lesson = lessonById.get(route.id);
+    return {
+      eyebrow: `PHASE ${String(lesson.phaseNumber).padStart(2, "0")} · LESSON ${String(lesson.number).padStart(2, "0")} OF ${ALL_LESSONS.length}`,
+      title: lesson.title,
+      subtitle: lesson.phaseTitle,
+      lesson,
+    };
+  }
+  const page = getPageSource(route.id);
+  return { eyebrow: route.id === "final-arabic" ? "FINAL RECORDING LESSON" : "THE SCRIPTWRITER’S ATLAS", title: page?.title || "Start Here", subtitle: "Professional video scriptwriting course" };
+}
+
+function navControls(route) {
+  if (route.kind !== "lesson") return "";
+  const position = ALL_LESSONS.findIndex((lesson) => lesson.id === route.id);
+  const previous = position > 0 ? ALL_LESSONS[position - 1] : null;
+  const next = position < ALL_LESSONS.length - 1 ? ALL_LESSONS[position + 1] : null;
+  const previousMarkup = previous
+    ? `<a class="pager-card previous" href="${routeUrl("lesson", previous.id)}" data-app-link="true" data-route="lesson:${previous.id}"><span>← PREVIOUS</span><strong>${escapeHtml(previous.title)}</strong></a>`
+    : `<a class="pager-card previous" href="${routeUrl("page", "roadmap")}" data-app-link="true" data-route="page:roadmap"><span>← COURSE MAP</span><strong>Review the learning roadmap</strong></a>`;
+  const nextMarkup = next
+    ? `<a class="pager-card next" href="${routeUrl("lesson", next.id)}" data-app-link="true" data-route="lesson:${next.id}"><span>NEXT LESSON →</span><strong>${escapeHtml(next.title)}</strong></a>`
+    : `<a class="pager-card next" href="${routeUrl("page", "final-arabic")}" data-app-link="true" data-route="page:final-arabic"><span>FINAL LESSON →</span><strong>Arabic voiceover recording script</strong></a>`;
+  return `<nav class="lesson-pager" aria-label="Lesson navigation">${previousMarkup}${nextMarkup}</nav>`;
+}
+
+function homeHero() {
+  return `<section class="home-hero">
+    <div class="hero-kicker"><span class="hero-kicker-line"></span>THE PRACTICAL CRAFT OF VIDEO SCRIPTWRITING</div>
+    <h1>From first idea<br><span>to final cut.</span></h1>
+    <p class="hero-lede">Learn to make the decisions behind a strong script: what to promise, what to prove, what to show, and what to remove.</p>
+    <div class="hero-actions">
+      <a class="primary-button" href="${routeUrl("lesson", "lesson-01")}" data-app-link="true" data-route="lesson:lesson-01">Begin with Lesson 1 <span>→</span></a>
+      <a class="secondary-button" href="${routeUrl("page", "roadmap")}" data-app-link="true" data-route="page:roadmap">View the roadmap</a>
+      <a class="quiet-button" href="/source-atlas.zip">Download source archive</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>12</strong><span>phases</span></div>
+      <div><strong>16</strong><span>core lessons</span></div>
+      <div><strong>4</strong><span>workshops</span></div>
+      <div><strong>1</strong><span>production capstone</span></div>
+    </div>
+    <div class="hero-side-note"><span class="note-mark">“</span><span>Not a formula to copy.<br>A judgment you can build.</span></div>
+  </section>`;
+}
+
+function lessonToolbar(lesson) {
+  const done = isComplete(lesson.id);
+  const hasAudio = Boolean(AUDIO_PART_COUNTS[lesson.number]);
+  return `<div class="lesson-toolbar">
+    <div class="lesson-context"><span class="context-dot"></span>PHASE ${String(lesson.phaseNumber).padStart(2, "0")} <span class="context-divider">/</span> ${escapeHtml(lesson.phaseTitle.toUpperCase())}</div>
+    <div class="lesson-toolbar-actions">
+      ${hasAudio ? `<button class="audio-chip audio-open-button" id="audio-open" aria-expanded="false"><span class="audio-icon">▶</span>Listen to narration</button>` : ""}
+      <button class="complete-button${done ? " is-done" : ""}" id="complete-lesson" data-lesson-id="${lesson.id}" aria-pressed="${done}">${done ? "✓ Completed" : "Mark complete"}</button>
+    </div>
+  </div>`;
+}
+
+function audioPlayerMarkup(lesson) {
+  const partCount = AUDIO_PART_COUNTS[lesson.number];
+  if (!partCount) return "";
+  const lessonCode = String(lesson.number).padStart(2, "0");
+  const phaseCode = String(lesson.phaseNumber).padStart(2, "0");
+  const base = `/course/audio/phase-${phaseCode}-lesson-${lessonCode}`;
+  const parts = Array.from({ length: partCount }, (_unused, index) => {
+    const part = String(index + 1).padStart(2, "0");
+    return `<button class="audio-part${index === 0 ? " active" : ""}" type="button" data-audio-part="${index}" data-audio-src="${base}-part-${part}.mp3"><span>${part}</span>Part ${index + 1}</button>`;
+  }).join("");
+  return `<section class="audio-panel" id="audio-panel" hidden aria-label="Lesson voiceover audio">
+    <div class="audio-panel-head">
+      <div><span class="player-kicker">LESSON ${lessonCode} · GENERATED NARRATION</span><p>${partCount} numbered MP3 segments, played in sequence.</p></div>
+      <div class="audio-panel-actions"><a href="${base}.m3u" download>Playlist file ↗</a><button class="audio-close" id="audio-close" aria-label="Close audio player">×</button></div>
+    </div>
+    <audio id="lesson-audio" controls preload="none" src="${base}-part-01.mp3">Your browser does not support audio playback.</audio>
+    <div class="audio-parts" aria-label="Audio segments">${parts}</div>
+  </section>`;
+}
+
+function buildPageContent(route, markdown) {
+  if (route.kind === "lesson") {
+    const lesson = lessonById.get(route.id);
+    const phaseMarkdown = extractLesson(markdown, lesson.number);
+    const phaseIntro = phaseMarkdown.intro.replace(/^# (.+)$/m, "## $1");
+    const fullContent = `${phaseIntro}\n\n${phaseMarkdown.content}`;
+    return `${lessonToolbar(lesson)}${audioPlayerMarkup(lesson)}<article class="markdown-body lesson-body">${renderMarkdown(fullContent, lesson.file)}</article>${navControls(route)}`;
+  }
+  const source = getPageSource(route.id);
+  const pageMarkdown = route.id === "start" ? markdown.replace(/^# [^\n]+\n+/, "") : markdown;
+  const hero = route.id === "start" ? homeHero() : "";
+  const badge = route.id === "final-arabic" ? `<div class="final-notice"><span>FINAL COURSE ITEM</span><p>This is the only Arabic teaching script. Complete the English course first.</p></div>` : "";
+  return `${hero}${badge}<article class="markdown-body resource-body">${renderMarkdown(pageMarkdown, source.file)}</article>`;
+}
+
+function appShell(route, content) {
+  const meta = routeMeta(route);
+  const titleText = route.kind === "lesson" ? `Phase ${String(meta.lesson.phaseNumber).padStart(2, "0")} · Lesson ${meta.lesson.number}` : meta.subtitle;
+  return `<div class="site-shell">
+    ${sidebarMarkup(route)}
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+    <div class="main-shell">
+      <header class="topbar">
+        <button class="menu-button" id="menu-toggle" aria-label="Open course navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+        <div class="breadcrumbs"><span class="crumb-muted">ATLAS</span><span class="crumb-slash">/</span><span>${escapeHtml(titleText)}</span></div>
+        <div class="topbar-tools">
+          <div class="search-wrap">
+            <span class="search-symbol" aria-hidden="true">⌕</span>
+            <input id="course-search" type="search" placeholder="Search lessons and tools" autocomplete="off" aria-label="Search course content" />
+            <kbd>⌘ K</kbd>
+            <div class="search-results" id="search-results" hidden></div>
+          </div>
+        </div>
+      </header>
+      <main id="main-content" class="main-content">${content}</main>
+      <footer class="site-footer"><span>THE SCRIPTWRITER’S ATLAS</span><span>Write with purpose · prove what you claim · serve the viewer</span></footer>
+    </div>
+  </div>`;
+}
+
+async function renderApp() {
+  const route = currentRoute();
+  app.innerHTML = `<div class="boot-screen" role="status"><div class="boot-mark">A</div><p>Loading course content…</p></div>`;
+  try {
+    const source = route.kind === "lesson" ? lessonById.get(route.id) : getPageSource(route.id);
+    const markdown = await loadMarkdown(source.file);
+    const content = buildPageContent(route, markdown);
+    app.innerHTML = appShell(route, content);
+    bindInteractions(route);
+    if (new URLSearchParams(window.location.search).get("audio") === "1") {
+      const panel = document.getElementById("audio-panel");
+      const toggle = document.getElementById("audio-open");
+      if (panel && toggle) {
+        panel.hidden = false;
+        toggle.setAttribute("aria-expanded", "true");
+        window.setTimeout(() => panel.scrollIntoView({ block: "nearest", behavior: "smooth" }), 90);
+      }
+    }
+    if (window.location.hash) {
+      window.setTimeout(() => {
+        const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        target?.scrollIntoView({ block: "start", behavior: "smooth" });
+      }, 80);
+    } else {
+      document.getElementById("main-content")?.scrollTo(0, 0);
+      window.scrollTo(0, 0);
+    }
+    document.title = route.kind === "lesson"
+      ? `${source.title} — The Scriptwriter’s Atlas`
+      : `${source.title} — The Scriptwriter’s Atlas`;
+  } catch (error) {
+    app.innerHTML = appShell(route, `<section class="error-card"><span class="error-kicker">CONTENT COULD NOT LOAD</span><h1>Let’s try that again.</h1><p>${escapeHtml(error.message)}</p><button class="primary-button" onclick="window.location.reload()">Reload course</button></section>`);
+    bindInteractions(route);
+  }
+}
+
+function navigateRoute(routeString) {
+  const [kind, id] = routeString.split(":");
+  if (kind !== "page" && kind !== "lesson") return;
+  const valid = kind === "lesson" ? lessonById.has(id) : id === "start" || resourceById.has(id);
+  if (!valid) return;
+  history.pushState({}, "", routeUrl(kind, id));
+  renderApp();
+}
+
+function bindInteractions(route) {
+  const menu = document.getElementById("menu-toggle");
+  const sidebar = document.getElementById("sidebar");
+  const scrim = document.getElementById("sidebar-scrim");
+  const closeMenu = () => {
+    sidebar?.classList.remove("is-open");
+    scrim?.classList.remove("is-visible");
+    menu?.setAttribute("aria-expanded", "false");
+  };
+  menu?.addEventListener("click", () => {
+    const open = !sidebar.classList.contains("is-open");
+    sidebar.classList.toggle("is-open", open);
+    scrim.classList.toggle("is-visible", open);
+    menu.setAttribute("aria-expanded", String(open));
+  });
+  scrim?.addEventListener("click", closeMenu);
+
+  document.querySelectorAll("[data-app-link][data-route]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeMenu();
+      navigateRoute(link.dataset.route);
+    });
+  });
+
+  const complete = document.getElementById("complete-lesson");
+  complete?.addEventListener("click", () => {
+    const id = complete.dataset.lessonId;
+    const nextValue = !isComplete(id);
+    setComplete(id, nextValue);
+    renderApp();
+  });
+
+  const audioPanel = document.getElementById("audio-panel");
+  const audioOpen = document.getElementById("audio-open");
+  const audioClose = document.getElementById("audio-close");
+  const audio = document.getElementById("lesson-audio");
+  const audioParts = [...document.querySelectorAll("[data-audio-part]")];
+  const selectAudioPart = (button, autoplay = true) => {
+    if (!audio || !button) return;
+    audio.src = button.dataset.audioSrc;
+    audio.dataset.currentPart = button.dataset.audioPart;
+    audioParts.forEach((part) => part.classList.toggle("active", part === button));
+    audio.load();
+    if (autoplay) audio.play().catch(() => {});
+  };
+  audioOpen?.addEventListener("click", () => {
+    const open = audioPanel.hidden;
+    audioPanel.hidden = !open;
+    audioOpen.setAttribute("aria-expanded", String(open));
+    if (open) audioPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  });
+  audioClose?.addEventListener("click", () => {
+    audio?.pause();
+    audioPanel.hidden = true;
+    audioOpen?.setAttribute("aria-expanded", "false");
+  });
+  audioParts.forEach((button) => button.addEventListener("click", () => selectAudioPart(button)));
+  audio?.addEventListener("ended", () => {
+    const nextIndex = Number(audio.dataset.currentPart || 0) + 1;
+    if (nextIndex < audioParts.length) selectAudioPart(audioParts[nextIndex]);
+  });
+
+  bindSearch();
+  document.querySelectorAll(".phase-nav").forEach((details) => {
+    details.addEventListener("toggle", () => {
+      if (details.open) details.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
+  });
+}
+
+function bindSearch() {
+  const input = document.getElementById("course-search");
+  const results = document.getElementById("search-results");
+  if (!input || !results) return;
+  input.addEventListener("input", () => {
+    const query = input.value.trim().toLowerCase();
+    if (!query) {
+      results.hidden = true;
+      results.innerHTML = "";
+      return;
+    }
+    if (!searchReady) {
+      results.hidden = false;
+      results.innerHTML = `<div class="search-loading">Indexing the course…</div>`;
+      buildSearchIndex().then(() => {
+        if (input.value.trim().toLowerCase() === query) {
+          if (searchReady) input.dispatchEvent(new Event("input", { bubbles: true }));
+          else results.innerHTML = `<div class="search-empty">Search could not load. Please try again.</div>`;
+        }
+      });
+      return;
+    }
+    const matches = searchIndex.filter((item) => item.searchText.includes(query)).slice(0, 8);
+    results.hidden = false;
+    results.innerHTML = matches.length
+      ? matches.map((item) => {
+          const at = item.searchText.indexOf(query);
+          const excerpt = item.searchText.slice(Math.max(0, at - 48), at + query.length + 96);
+          const route = item.lessonId ? `lesson:${item.lessonId}` : `page:${item.pageId}`;
+          const url = item.lessonId ? routeUrl("lesson", item.lessonId) : routeUrl("page", item.pageId);
+          return `<a class="search-result" href="${url}" data-app-link="true" data-route="${route}"><span class="result-type">${escapeHtml(item.type)}</span><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(excerpt)}…</span></a>`;
+        }).join("")
+      : `<div class="search-empty">No results for <strong>${escapeHtml(query)}</strong>. Try “hook”, “proof”, or “revision”.</div>`;
+    results.querySelectorAll("[data-app-link][data-route]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        navigateRoute(link.dataset.route);
+      });
+    });
+  });
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      input.value = "";
+      results.hidden = true;
+      input.blur();
+    }
+  });
+}
+
+async function buildSearchIndex() {
+  if (searchReady) return;
+  if (searchTask) return searchTask;
+  searchTask = (async () => {
+    const phaseItems = await Promise.all(PHASES.map(async (phase) => {
+      const markdown = await loadMarkdown(phase.file);
+      return phase.lessons.map((lesson) => {
+        const parsed = extractLesson(markdown, lesson.number);
+        return {
+          lessonId: lesson.id,
+          title: lesson.title,
+          type: `PHASE ${String(phase.number).padStart(2, "0")} · LESSON ${lesson.number}`,
+          searchText: `${lesson.title} ${phase.title} ${textOnly(parsed.content)}`.toLowerCase(),
+        };
+      });
+    }));
+    const resourceItems = await Promise.all(RESOURCES.filter((item) => item.id !== "final-arabic").map(async (resource) => ({
+      pageId: resource.id,
+      title: resource.label,
+      type: "REFERENCE TOOL",
+      searchText: `${resource.label} ${textOnly(await loadMarkdown(resource.file))}`.toLowerCase(),
+    })));
+    const finalPage = RESOURCES.find((item) => item.id === "final-arabic");
+    const finalItem = {
+      pageId: finalPage.id,
+      title: finalPage.label,
+      type: "FINAL LESSON",
+      searchText: `${finalPage.label} voiceover recording`.toLowerCase(),
+    };
+    searchIndex = [...phaseItems.flat(), ...resourceItems, finalItem];
+    searchReady = true;
+  })();
+  try {
+    await searchTask;
+  } catch (error) {
+    searchTask = null;
+    console.warn("Course search index did not finish loading.", error);
+  }
+}
+
+window.addEventListener("popstate", renderApp);
+document.addEventListener("click", (event) => {
+  const results = document.getElementById("search-results");
+  if (results && !event.target.closest(".search-wrap")) results.hidden = true;
+});
+document.addEventListener("keydown", (event) => {
+  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+    event.preventDefault();
+    document.getElementById("course-search")?.focus();
+  }
+});
+
+renderApp();
