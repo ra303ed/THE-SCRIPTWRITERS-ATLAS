@@ -1,0 +1,31 @@
+# The Scriptwriter’s Atlas
+
+A practical, English-language course in professional video scriptwriting—from the first idea to a production-ready script. The course is organized as 12 progressive phases with 16 core lessons, four workshops, a workbook, case studies, worked scripts, a reference desk, and a final Arabic-only recording lesson.
+
+## Course source of truth
+
+The Markdown in [`course/`](course/README.md) is the canonical course content. The static website renders those Markdown files directly; it does not keep a second copy of lesson text. The supplied [`THE SCRIPTWRITERS ATLAS.zip`](THE%20SCRIPTWRITERS%20ATLAS.zip) archive is preserved unchanged.
+
+## Website and Vercel
+
+This repository is configured for a no-dependency static deployment on Vercel:
+
+- `vercel.json` selects the **Other** framework, runs `node build.mjs`, and publishes `dist/`.
+- The build copies the website, full Markdown course, generated audio and playlists, and original source archive into the deployment output.
+- No environment variables, package install, database, or external runtime service are required.
+
+To deploy, import this repository into Vercel and leave the build/output settings at their configured values. For a local production build, run:
+
+```sh
+node build.mjs
+```
+
+Then serve `dist/` with any static web server. For example, with Python installed:
+
+```sh
+python3 -m http.server 4173 --directory dist
+```
+
+## Start learning
+
+Open the [course roadmap](course/ROADMAP.md), then follow the phase sequence in the [course guide](course/README.md). The website includes browser search and locally saved lesson-completion progress. Audio is currently generated for Lessons 1–8 (Phase 1 Lessons 1–2, Phase 2 Lesson 3, Phase 3 Lessons 4–5, Phase 4 Lesson 6, Phase 5 Lesson 7, and Phase 6 Lesson 8); all 16 English narration scripts are in the course Markdown and the remaining eight lessons’ audio is being prepared in batches.
