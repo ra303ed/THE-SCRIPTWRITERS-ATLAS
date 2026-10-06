@@ -105,6 +105,59 @@ const resourceIdByFile = new Map(RESOURCES.map((resource) => [resource.file, res
 const phaseByFile = new Map(PHASES.map((phase) => [phase.file, phase]));
 const markdownCache = new Map();
 const AUDIO_PART_COUNTS = { 1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5 };
+const AUDIO_HIGHLIGHTS = {
+  1: ["topic", "question", "audience", "angle", "thesis", "promise", "evidence"],
+  2: ["sentence", "action", "evidence", "meaning", "bridge", "active voice", "passive voice"],
+  3: ["viewer", "decision", "beat", "change", "evidence", "structure"],
+  4: ["cause", "choice", "consequence", "desire", "obstacle", "change"],
+  5: ["structure", "chronology", "question", "evidence", "comparison", "payoff"],
+  6: ["claim", "observation", "inference", "evidence", "source", "uncertainty"],
+  7: ["hook", "promise", "curiosity", "proof", "payoff", "retention"],
+  8: ["human voice", "natural", "specific", "honest", "personality", "trust"],
+};
+const AUDIO_TERM_TRANSLATIONS = {
+  "active voice": "المبني للمعلوم",
+  action: "الفعل",
+  angle: "زاوية المعالجة",
+  audience: "الفئة المستهدفة",
+  beat: "خطوة في تسلسل المشهد",
+  bridge: "جملة الربط",
+  cause: "السبب",
+  change: "التغيير",
+  choice: "الاختيار",
+  claim: "الادعاء",
+  comparison: "المقارنة",
+  consequence: "النتيجة المترتبة",
+  chronology: "التسلسل الزمني",
+  curiosity: "الفضول",
+  decision: "القرار",
+  desire: "الرغبة",
+  evidence: "الدليل",
+  "human voice": "الصوت الإنساني",
+  honest: "صادق",
+  hook: "افتتاحية جاذبة",
+  inference: "الاستنتاج",
+  meaning: "المعنى",
+  natural: "طبيعي",
+  obstacle: "العقبة",
+  observation: "الملاحظة",
+  payoff: "النتيجة أو المكافأة",
+  personality: "الطابع الشخصي",
+  "passive voice": "المبني للمجهول",
+  proof: "الإثبات",
+  promise: "الوعد للمشاهد",
+  question: "السؤال",
+  retention: "الحفاظ على انتباه المشاهد",
+  sentence: "الجملة",
+  source: "المصدر",
+  specific: "محدد",
+  structure: "البناء أو الهيكل",
+  thesis: "الفكرة الرئيسية أو الموقف",
+  topic: "الموضوع",
+  uncertainty: "ما لم يُحسم بعد",
+  viewer: "المشاهد",
+  trust: "الثقة",
+};
 const PROGRESS_KEY = "scriptwriters-atlas-completed-v1";
 let searchIndex = [];
 let searchReady = false;
@@ -381,7 +434,9 @@ function renderMarkdown(markdown, sourceFile) {
       const hardBreak = /\s{2,}$/.test(part);
       return `${inlineMarkdown(part.trimEnd(), sourceFile)}${hardBreak ? "<br>" : ""}`;
     }).join(" ");
-    output.push(`<p>${html}</p>`);
+    const comparisonLabel = paragraph[0].trim().match(/^\*\*(WEAK|BETTER|WHY)\*\*/i)?.[1]?.toLowerCase();
+    const comparisonClass = comparisonLabel ? ` class="comparison-line comparison-${comparisonLabel}"` : "";
+    output.push(`<p${comparisonClass}>${html}</p>`);
   }
 
   return output.join("\n");
@@ -399,6 +454,131 @@ function extractLesson(markdown, lessonNumber) {
     content: markdown.slice(start, end).trim(),
     title: matches[targetIndex][2].trim(),
   };
+}
+
+function extractVoiceoverScript(markdown) {
+  const marker = /^### VOICEOVER SCRIPT\s*$/m;
+  const match = marker.exec(markdown);
+  if (!match) return "";
+  const start = match.index + match[0].length;
+  const remainder = markdown.slice(start);
+  const divider = /^---+\s*$/m.exec(remainder);
+  return (divider ? remainder.slice(0, divider.index) : remainder).trim();
+}
+
+function removeVoiceoverScript(markdown) {
+  const marker = /^### VOICEOVER SCRIPT\s*$/m;
+  const match = marker.exec(markdown);
+  if (!match) return markdown;
+  const remainderStart = match.index + match[0].length;
+  const remainder = markdown.slice(remainderStart);
+  const divider = /^---+\s*$/m.exec(remainder);
+  const afterScript = divider ? remainder.slice(divider.index) : "";
+  return `${markdown.slice(0, match.index).trimEnd()}\n\n${afterScript}`.trim();
+}
+
+function splitTranscriptSentences(paragraph) {
+  if (typeof Intl.Segmenter === "function") {
+    const segmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+    return [...segmenter.segment(paragraph)].map((part) => part.segment.trim()).filter(Boolean);
+  }
+  return paragraph.split(/(?<=[.!?])\s+/u).map((sentence) => sentence.trim()).filter(Boolean);
+}
+
+function transcriptWeight(text, paragraphEnd = false) {
+  const words = text.match(/[\p{L}\p{N}]+(?:[’'-][\p{L}\p{N}]+)*/gu) || [];
+  const pauses = (text.match(/[,;:—–]/g) || []).length * 1.1;
+  const sentenceEnd = /[.!?][’'”\")\]]*$/.test(text) ? 2 : 0;
+  return Math.max(1, words.length + pauses + sentenceEnd + (paragraphEnd ? 1.5 : 0));
+}
+
+function buildTranscript(voiceover, partCount) {
+  const paragraphs = voiceover
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .map((text, paragraphIndex) => ({
+      paragraphIndex,
+      cues: splitTranscriptSentences(text).map((sentence) => ({
+        text: sentence,
+        paragraphIndex,
+        weight: transcriptWeight(sentence),
+        partIndex: 0,
+        index: -1,
+      })),
+    }));
+  const cues = paragraphs.flatMap((paragraph) => paragraph.cues);
+  if (!cues.length) return { paragraphs, cues };
+
+  paragraphs.forEach((paragraph) => {
+    const lastCue = paragraph.cues.at(-1);
+    if (lastCue) lastCue.weight += 1.5;
+  });
+  cues.forEach((cue, index) => { cue.index = index; });
+
+  const totalCharacters = cues.reduce((total, cue) => total + cue.text.length + 1, 0);
+  let startIndex = 0;
+  let consumedCharacters = 0;
+  for (let partIndex = 0; partIndex < partCount; partIndex += 1) {
+    let endIndex = cues.length;
+    if (partIndex < partCount - 1) {
+      const target = totalCharacters * (partIndex + 1) / partCount;
+      const latestEnd = cues.length - (partCount - partIndex - 1);
+      let bestDistance = Infinity;
+      let runningCharacters = consumedCharacters;
+      for (let candidateEnd = startIndex + 1; candidateEnd <= latestEnd; candidateEnd += 1) {
+        runningCharacters += cues[candidateEnd - 1].text.length + 1;
+        const distance = Math.abs(runningCharacters - target);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          endIndex = candidateEnd;
+        }
+        if (runningCharacters >= target && distance > bestDistance) break;
+      }
+    }
+    for (let cueIndex = startIndex; cueIndex < endIndex; cueIndex += 1) {
+      cues[cueIndex].partIndex = partIndex;
+    }
+    consumedCharacters = cues.slice(startIndex, endIndex).reduce((sum, cue) => sum + cue.text.length + 1, consumedCharacters);
+    startIndex = endIndex;
+  }
+  return { paragraphs, cues };
+}
+
+function highlightedText(text, lessonNumber) {
+  const terms = AUDIO_HIGHLIGHTS[lessonNumber] || [];
+  if (!terms.length) return escapeHtml(text);
+  const alternatives = terms
+    .slice()
+    .sort((first, second) => second.length - first.length)
+    .map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  const matcher = new RegExp(`(^|[^A-Za-z0-9])(${alternatives})(?=$|[^A-Za-z0-9])`, "giu");
+  let result = "";
+  let lastIndex = 0;
+  for (const match of text.matchAll(matcher)) {
+    const fullMatch = match[0];
+    const prefix = match[1] || "";
+    const term = match[2];
+    const matchIndex = match.index;
+    result += escapeHtml(text.slice(lastIndex, matchIndex)) + escapeHtml(prefix);
+    const arabicMeaning = AUDIO_TERM_TRANSLATIONS[term.toLowerCase()];
+    const title = escapeHtml(arabicMeaning ? `${term} — ${arabicMeaning}` : term);
+    result += `<mark class="key-term" title="${title}">${escapeHtml(term)}</mark>`;
+    lastIndex = matchIndex + fullMatch.length;
+  }
+  return result + escapeHtml(text.slice(lastIndex));
+}
+
+function transcriptMarkup(voiceover, lesson) {
+  const transcript = buildTranscript(voiceover, AUDIO_PART_COUNTS[lesson.number]);
+  const paragraphs = transcript.paragraphs.map((paragraph) => {
+    const sentences = paragraph.cues.map((cue) =>
+      `<span class="transcript-sentence" data-transcript-index="${cue.index}" data-audio-part="${cue.partIndex}" data-transcript-weight="${cue.weight.toFixed(2)}">${highlightedText(cue.text, lesson.number)}</span>`
+    ).join(" ");
+    return `<p class="transcript-paragraph">${sentences}</p>`;
+  }).join("");
+  return { markup: paragraphs, cues: transcript.cues };
 }
 
 function textOnly(markdown) {
@@ -525,30 +705,65 @@ function lessonToolbar(lesson) {
   return `<div class="lesson-toolbar">
     <div class="lesson-context"><span class="context-dot"></span>PHASE ${String(lesson.phaseNumber).padStart(2, "0")} <span class="context-divider">/</span> ${escapeHtml(lesson.phaseTitle.toUpperCase())}</div>
     <div class="lesson-toolbar-actions">
-      ${hasAudio ? `<button class="audio-chip audio-open-button" id="audio-open" aria-expanded="false"><span class="audio-icon">▶</span>Listen to narration</button>` : ""}
+      ${hasAudio ? `<button class="audio-chip audio-open-button" id="audio-open" aria-expanded="true" aria-label="إظهار أو إخفاء نص التعليق الصوتي"><span class="audio-icon">▤</span><span id="audio-open-label">إخفاء النص</span></button>` : ""}
       <button class="complete-button${done ? " is-done" : ""}" id="complete-lesson" data-lesson-id="${lesson.id}" aria-pressed="${done}">${done ? "✓ Completed" : "Mark complete"}</button>
     </div>
   </div>`;
 }
 
-function audioPlayerMarkup(lesson) {
+function audioPlayerMarkup(lesson, voiceover) {
   const partCount = AUDIO_PART_COUNTS[lesson.number];
-  if (!partCount) return "";
+  if (!partCount || !voiceover) return "";
   const lessonCode = String(lesson.number).padStart(2, "0");
   const phaseCode = String(lesson.phaseNumber).padStart(2, "0");
   const base = `/course/audio/phase-${phaseCode}-lesson-${lessonCode}`;
   const parts = Array.from({ length: partCount }, (_unused, index) => {
     const part = String(index + 1).padStart(2, "0");
-    return `<button class="audio-part${index === 0 ? " active" : ""}" type="button" data-audio-part="${index}" data-audio-src="${base}-part-${part}.mp3"><span>${part}</span>Part ${index + 1}</button>`;
+    return `<button class="audio-part${index === 0 ? " active" : ""}" type="button" data-audio-part="${index}" data-audio-src="${base}-part-${part}.mp3"><span>${part}</span>المقطع ${index + 1}</button>`;
   }).join("");
-  return `<section class="audio-panel" id="audio-panel" hidden aria-label="Lesson voiceover audio">
+  const transcript = transcriptMarkup(voiceover, lesson);
+  const keyTerms = (AUDIO_HIGHLIGHTS[lesson.number] || []).map((term) =>
+    `<span class="key-term-chip"><span lang="en" dir="ltr">${escapeHtml(term)}</span><small lang="ar" dir="rtl">${escapeHtml(AUDIO_TERM_TRANSLATIONS[term] || "")}</small></span>`
+  ).join("");
+  return `<section class="audio-panel" id="audio-panel" aria-label="Lesson voiceover and synchronized transcript">
     <div class="audio-panel-head">
-      <div><span class="player-kicker">LESSON ${lessonCode} · GENERATED NARRATION</span><p>${partCount} numbered MP3 segments, played in sequence.</p></div>
-      <div class="audio-panel-actions"><a href="${base}.m3u" download>Playlist file ↗</a><button class="audio-close" id="audio-close" aria-label="Close audio player">×</button></div>
+      <div><span class="player-kicker">LESSON ${lessonCode} · VOICEOVER</span><h2><span lang="ar" dir="rtl">اسمع واقرأ معًا</span><small>Listen &amp; read along</small></h2><p lang="ar" dir="rtl">شغّل الصوت واتبع الجملة المضيئة. الكلمات الذهبية هي الأفكار المهمة ومعناها بالعربي بجانبها.</p></div>
+      <div class="audio-panel-actions"><a href="${base}.m3u" download aria-label="تحميل قائمة الصوت">تحميل القائمة ↗</a><button class="audio-close" id="audio-close" aria-label="إخفاء مشغل الصوت ونصه" title="إخفاء">×</button></div>
     </div>
-    <audio id="lesson-audio" controls preload="none" src="${base}-part-01.mp3">Your browser does not support audio playback.</audio>
-    <div class="audio-parts" aria-label="Audio segments">${parts}</div>
+    <audio id="lesson-audio" controls preload="metadata" data-current-part="0" src="${base}-part-01.mp3">Your browser does not support audio playback.</audio>
+    <div class="audio-status-row"><span id="audio-status" role="status" aria-live="polite">جاهز · المقطع 1 من ${partCount}</span><span id="audio-time">0:00</span></div>
+    <div class="audio-progress" id="audio-progress" role="progressbar" aria-label="تقدم الصوت" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><span id="audio-progress-fill"></span></div>
+    <div class="audio-control-row">
+      <div class="audio-parts" aria-label="أجزاء الصوت">${parts}</div>
+      <label class="speed-control" for="audio-speed"><span lang="ar" dir="rtl">سرعة الصوت</span><select id="audio-speed" aria-label="سرعة تشغيل الصوت"><option value="0.8">0.8× بطيء</option><option value="0.9">0.9×</option><option value="1" selected>1× عادي</option><option value="1.15">1.15×</option></select></label>
+    </div>
+    <div class="transcript-heading">
+      <div><span class="transcript-kicker">READ ALONG</span><h3 lang="ar" dir="rtl">نص التعليق الصوتي</h3></div>
+      <button class="transcript-toggle" id="transcript-toggle" type="button" aria-expanded="true">إخفاء النص</button>
+    </div>
+    <div class="transcript-copy" id="transcript-copy">
+      <div class="transcript-scroll" id="transcript-scroll" lang="en" dir="ltr" role="region" aria-label="نص التعليق الصوتي المتزامن">
+        <div class="transcript-content" id="transcript-content">${transcript.markup}</div>
+      </div>
+      <div class="transcript-legend"><span><i aria-hidden="true"></i>أفكار أساسية</span><div class="key-term-list">${keyTerms}</div></div>
+      <p class="transcript-note" lang="ar" dir="rtl">يتم تظليل الجملة الحالية مع تقدم الصوت؛ قد يختلف التظليل قليلًا عن النطق الفعلي.</p>
+    </div>
   </section>`;
+}
+
+function voiceoverDockMarkup(lesson) {
+  if (!AUDIO_PART_COUNTS[lesson.number]) return "";
+  return `<aside class="voice-dock" id="voice-dock" aria-label="أدوات التعليق الصوتي الثابتة">
+    <button class="voice-dock-toggle" id="voice-toggle" type="button" aria-label="تشغيل التعليق الصوتي" title="تشغيل الصوت">
+      <svg class="voice-toggle-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="icon-play" d="M8 5.5v13l10-6.5z"></path><path class="icon-pause" d="M7 5h4v14H7zm7 0h4v14h-4z"></path></svg>
+    </button>
+    <div class="voice-dock-main">
+      <div class="voice-dock-meta"><span class="voice-live-dot"></span><span>LESSON ${String(lesson.number).padStart(2, "0")} · VOICEOVER</span><span class="voice-dock-state" id="voice-dock-state">جاهز</span></div>
+      <p class="voice-dock-caption" id="voice-dock-caption" lang="ar" dir="rtl" aria-live="polite">اضغط تشغيل لتسمع وتتابع النص.</p>
+      <div class="voice-dock-progress" id="voice-dock-progress" role="progressbar" aria-label="تقدم الصوت" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><span id="voice-dock-progress-fill"></span></div>
+    </div>
+    <button class="voice-dock-text" id="voice-show-transcript" type="button" aria-label="إظهار نص التعليق الصوتي" title="إظهار النص"><span aria-hidden="true">Aa</span><small>النص</small></button>
+  </aside>`;
 }
 
 function buildPageContent(route, markdown) {
@@ -556,8 +771,11 @@ function buildPageContent(route, markdown) {
     const lesson = lessonById.get(route.id);
     const phaseMarkdown = extractLesson(markdown, lesson.number);
     const phaseIntro = phaseMarkdown.intro.replace(/^# (.+)$/m, "## $1");
-    const fullContent = `${phaseIntro}\n\n${phaseMarkdown.content}`;
-    return `${lessonToolbar(lesson)}${audioPlayerMarkup(lesson)}<article class="markdown-body lesson-body">${renderMarkdown(fullContent, lesson.file)}</article>${navControls(route)}`;
+    const hasAudio = Boolean(AUDIO_PART_COUNTS[lesson.number]);
+    const voiceover = hasAudio ? extractVoiceoverScript(phaseMarkdown.content) : "";
+    const lessonContent = voiceover ? removeVoiceoverScript(phaseMarkdown.content) : phaseMarkdown.content;
+    const fullContent = `${phaseIntro}\n\n${lessonContent}`;
+    return `${lessonToolbar(lesson)}${audioPlayerMarkup(lesson, voiceover)}<article class="markdown-body lesson-body">${renderMarkdown(fullContent, lesson.file)}</article>${navControls(route)}`;
   }
   const source = getPageSource(route.id);
   const pageMarkdown = route.id === "start" ? markdown.replace(/^# [^\n]+\n+/, "") : markdown;
@@ -568,8 +786,9 @@ function buildPageContent(route, markdown) {
 
 function appShell(route, content) {
   const meta = routeMeta(route);
+  const hasVoiceover = route.kind === "lesson" && Boolean(AUDIO_PART_COUNTS[meta.lesson.number]);
   const titleText = route.kind === "lesson" ? `Phase ${String(meta.lesson.phaseNumber).padStart(2, "0")} · Lesson ${meta.lesson.number}` : meta.subtitle;
-  return `<div class="site-shell">
+  return `<div class="site-shell${hasVoiceover ? " has-voiceover" : ""}">
     ${sidebarMarkup(route)}
     <div class="sidebar-scrim" id="sidebar-scrim"></div>
     <div class="main-shell">
@@ -588,6 +807,7 @@ function appShell(route, content) {
       <main id="main-content" class="main-content">${content}</main>
       <footer class="site-footer"><span>THE SCRIPTWRITER’S ATLAS</span><span>Write with purpose · prove what you claim · serve the viewer</span></footer>
     </div>
+    ${hasVoiceover ? voiceoverDockMarkup(meta.lesson) : ""}
   </div>`;
 }
 
@@ -671,33 +891,205 @@ function bindInteractions(route) {
 
   const audioPanel = document.getElementById("audio-panel");
   const audioOpen = document.getElementById("audio-open");
+  const audioOpenLabel = document.getElementById("audio-open-label");
   const audioClose = document.getElementById("audio-close");
   const audio = document.getElementById("lesson-audio");
   const audioParts = [...document.querySelectorAll("[data-audio-part]")];
+  const audioSpeed = document.getElementById("audio-speed");
+  const voiceToggle = document.getElementById("voice-toggle");
+  const voiceDock = document.getElementById("voice-dock");
+  const voiceDockState = document.getElementById("voice-dock-state");
+  const voiceCaption = document.getElementById("voice-dock-caption");
+  const voiceShowTranscript = document.getElementById("voice-show-transcript");
+  const transcriptCopy = document.getElementById("transcript-copy");
+  const transcriptToggle = document.getElementById("transcript-toggle");
+  const transcriptScroll = document.getElementById("transcript-scroll");
+  const transcriptCues = [...document.querySelectorAll("[data-transcript-index]")].map((element) => ({
+    index: Number(element.dataset.transcriptIndex),
+    partIndex: Number(element.dataset.audioPart),
+    weight: Math.max(1, Number(element.dataset.transcriptWeight) || 1),
+    element,
+  }));
+  const partCount = audioParts.length;
+  const cuesByPart = Array.from({ length: partCount }, (_unused, index) => transcriptCues.filter((cue) => cue.partIndex === index));
+  const audioStatus = document.getElementById("audio-status");
+  const audioTime = document.getElementById("audio-time");
+  const audioProgress = document.getElementById("audio-progress");
+  const audioProgressFill = document.getElementById("audio-progress-fill");
+  const dockProgress = document.getElementById("voice-dock-progress");
+  const dockProgressFill = document.getElementById("voice-dock-progress-fill");
+  let activeCueIndex = -1;
+  let playbackStarted = false;
+
+  const currentPartIndex = () => Math.max(0, Math.min(partCount - 1, Number(audio?.dataset.currentPart) || 0));
+  const formatTime = (seconds) => {
+    if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, "0");
+    return `${minutes}:${remainingSeconds}`;
+  };
+  const setTranscriptOpen = (open) => {
+    if (!transcriptCopy) return;
+    transcriptCopy.hidden = !open;
+    transcriptToggle?.setAttribute("aria-expanded", String(open));
+    if (transcriptToggle) transcriptToggle.textContent = open ? "إخفاء النص" : "إظهار النص";
+  };
+  const setPanelOpen = (open, scroll = false, revealTranscript = false) => {
+    if (!audioPanel) return;
+    audioPanel.hidden = !open;
+    audioOpen?.setAttribute("aria-expanded", String(open));
+    if (audioOpenLabel) audioOpenLabel.textContent = open ? "إخفاء النص" : "إظهار النص";
+    if (open && revealTranscript) setTranscriptOpen(true);
+    if (scroll && open) audioPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  };
+  const scrollTranscriptCueIntoView = (element) => {
+    if (!transcriptScroll || audioPanel?.hidden || !element) return;
+    const panelBounds = audioPanel.getBoundingClientRect();
+    const scrollBounds = transcriptScroll.getBoundingClientRect();
+    if (panelBounds.bottom <= 0 || panelBounds.top >= window.innerHeight) return;
+    const cueBounds = element.getBoundingClientRect();
+    if (cueBounds.top < scrollBounds.top + 12 || cueBounds.bottom > scrollBounds.bottom - 12) {
+      transcriptScroll.scrollTo({
+        top: transcriptScroll.scrollTop + cueBounds.top - scrollBounds.top - 22,
+        behavior: "smooth",
+      });
+    }
+  };
+  const setActiveCue = (cue) => {
+    if (!cue || cue.index === activeCueIndex) return;
+    const previousCue = transcriptCues.find((item) => item.index === activeCueIndex);
+    previousCue?.element.classList.remove("is-active");
+    previousCue?.element.removeAttribute("aria-current");
+    activeCueIndex = cue.index;
+    cue.element.classList.add("is-active");
+    cue.element.setAttribute("aria-current", "true");
+    if (voiceCaption) {
+      voiceCaption.innerHTML = highlightedText(cue.element.textContent.trim(), route.kind === "lesson" ? lessonById.get(route.id).number : 0);
+      voiceCaption.lang = "en";
+      voiceCaption.dir = "ltr";
+    }
+    scrollTranscriptCueIntoView(cue.element);
+  };
+  const updateActiveCue = () => {
+    if (!audio || !transcriptCues.length) return;
+    const partCues = cuesByPart[currentPartIndex()] || [];
+    if (!partCues.length) return;
+    const duration = Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
+    const progress = duration ? Math.max(0, Math.min(1, audio.currentTime / duration)) : 0;
+    const totalWeight = partCues.reduce((sum, cue) => sum + cue.weight, 0);
+    let remainingWeight = progress * totalWeight;
+    let selectedCue = partCues[partCues.length - 1];
+    for (const cue of partCues) {
+      if (remainingWeight < cue.weight) {
+        selectedCue = cue;
+        break;
+      }
+      remainingWeight -= cue.weight;
+    }
+    setActiveCue(selectedCue);
+  };
+  const updateProgress = () => {
+    if (!audio || !partCount) return;
+    const partIndex = currentPartIndex();
+    const duration = Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : 0;
+    const segmentProgress = duration ? Math.max(0, Math.min(1, audio.currentTime / duration)) : 0;
+    const totalProgress = Math.max(0, Math.min(1, (partIndex + segmentProgress) / partCount));
+    const percent = Math.round(totalProgress * 100);
+    const isPlaying = !audio.paused && !audio.ended;
+    const isFinished = audio.ended && partIndex === partCount - 1;
+    const statusText = isFinished
+      ? "اكتمل الاستماع"
+      : isPlaying
+        ? `يعمل · المقطع ${partIndex + 1} من ${partCount}`
+        : playbackStarted
+          ? `متوقف مؤقتًا · المقطع ${partIndex + 1} من ${partCount}`
+          : `جاهز · المقطع ${partIndex + 1} من ${partCount}`;
+    if (audioStatus) audioStatus.textContent = statusText;
+    if (voiceDockState) voiceDockState.textContent = isFinished ? "اكتمل" : isPlaying ? "يعمل" : playbackStarted ? "متوقف" : "جاهز";
+    if (audioTime) audioTime.textContent = duration ? `${formatTime(audio.currentTime)} / ${formatTime(duration)}` : "0:00";
+    if (audioProgressFill) audioProgressFill.style.width = `${percent}%`;
+    if (dockProgressFill) dockProgressFill.style.width = `${percent}%`;
+    audioProgress?.setAttribute("aria-valuenow", String(percent));
+    dockProgress?.setAttribute("aria-valuenow", String(percent));
+    voiceDock?.classList.toggle("is-playing", isPlaying);
+    voiceToggle?.setAttribute("aria-label", isPlaying ? "إيقاف التعليق الصوتي مؤقتًا" : "تشغيل التعليق الصوتي");
+    voiceToggle?.setAttribute("title", isPlaying ? "إيقاف مؤقت" : "تشغيل الصوت");
+  };
   const selectAudioPart = (button, autoplay = true) => {
     if (!audio || !button) return;
     audio.src = button.dataset.audioSrc;
     audio.dataset.currentPart = button.dataset.audioPart;
     audioParts.forEach((part) => part.classList.toggle("active", part === button));
     audio.load();
-    if (autoplay) audio.play().catch(() => {});
+    const firstCue = cuesByPart[Number(button.dataset.audioPart)]?.[0];
+    if (firstCue) setActiveCue(firstCue);
+    else updateActiveCue();
+    updateProgress();
+    if (autoplay) {
+      audio.play().catch(() => {
+        if (audioStatus) audioStatus.textContent = "تعذر التشغيل · اضغط زر الصوت مرة أخرى";
+      });
+    }
   };
+  const playOrPause = () => {
+    if (!audio) return;
+    if (audio.paused) {
+      if (audio.ended && currentPartIndex() === partCount - 1) {
+        selectAudioPart(audioParts[0]);
+        return;
+      }
+      if (audioPanel?.hidden) setPanelOpen(true, false, true);
+      audio.play().catch(() => {
+        if (audioStatus) audioStatus.textContent = "تعذر التشغيل · اضغط زر الصوت مرة أخرى";
+      });
+    } else {
+      audio.pause();
+    }
+  };
+
   audioOpen?.addEventListener("click", () => {
-    const open = audioPanel.hidden;
-    audioPanel.hidden = !open;
-    audioOpen.setAttribute("aria-expanded", String(open));
-    if (open) audioPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    const open = Boolean(audioPanel?.hidden);
+    setPanelOpen(open, open, open);
   });
   audioClose?.addEventListener("click", () => {
     audio?.pause();
-    audioPanel.hidden = true;
-    audioOpen?.setAttribute("aria-expanded", "false");
+    setPanelOpen(false);
   });
+  voiceToggle?.addEventListener("click", playOrPause);
+  voiceShowTranscript?.addEventListener("click", () => setPanelOpen(true, true, true));
+  transcriptToggle?.addEventListener("click", () => setTranscriptOpen(Boolean(transcriptCopy?.hidden)));
   audioParts.forEach((button) => button.addEventListener("click", () => selectAudioPart(button)));
-  audio?.addEventListener("ended", () => {
-    const nextIndex = Number(audio.dataset.currentPart || 0) + 1;
-    if (nextIndex < audioParts.length) selectAudioPart(audioParts[nextIndex]);
+  audioSpeed?.addEventListener("change", () => {
+    if (audio) audio.playbackRate = Number(audioSpeed.value) || 1;
   });
+  audio?.addEventListener("loadedmetadata", () => {
+    updateActiveCue();
+    updateProgress();
+  });
+  audio?.addEventListener("timeupdate", () => {
+    updateActiveCue();
+    updateProgress();
+  });
+  audio?.addEventListener("seeked", () => {
+    updateActiveCue();
+    updateProgress();
+  });
+  audio?.addEventListener("play", () => {
+    playbackStarted = true;
+    updateProgress();
+  });
+  audio?.addEventListener("pause", updateProgress);
+  audio?.addEventListener("ended", () => {
+    const nextIndex = currentPartIndex() + 1;
+    if (nextIndex < audioParts.length) {
+      selectAudioPart(audioParts[nextIndex]);
+      return;
+    }
+    if (transcriptCues.length) setActiveCue(transcriptCues[transcriptCues.length - 1]);
+    updateProgress();
+  });
+  updateActiveCue();
+  updateProgress();
 
   bindSearch();
   document.querySelectorAll(".phase-nav").forEach((details) => {
