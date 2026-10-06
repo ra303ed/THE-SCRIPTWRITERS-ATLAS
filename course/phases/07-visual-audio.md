@@ -15,7 +15,7 @@ You will turn one script beat into a production-ready AV plan another person can
 
 # Lesson 10 — Write for Image, Sound, and Edit—not Just for the Page
 
-**Estimated voiceover:** 10–12 minutes · **Practice:** 30 minutes
+**Estimated voiceover:** 10–12 minutes · **Practice:** 30 minutes · **Audio:** [listen to Lesson 10](../audio/phase-07-lesson-10.m3u)
 
 ## What You Will Learn
 

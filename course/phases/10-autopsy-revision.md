@@ -15,7 +15,7 @@ You will produce a documented revision from one draft to a stronger one, explain
 
 # Lesson 13 — Diagnose a Weak Script Before You Rewrite It
 
-**Estimated voiceover:** 11–13 minutes · **Practice:** 30 minutes
+**Estimated voiceover:** 11–13 minutes · **Practice:** 30 minutes · **Audio:** [listen to Lesson 13](../audio/phase-10-lesson-13.m3u)
 
 ## What You Will Learn
 
@@ -188,7 +188,7 @@ Carry this into your next draft: a good rewrite solves the cause, not the sympto
 
 # Lesson 14 — Revise in the Right Order and Learn from Feedback
 
-**Estimated voiceover:** 11–13 minutes · **Practice:** 45 minutes
+**Estimated voiceover:** 11–13 minutes · **Practice:** 45 minutes · **Audio:** [listen to Lesson 14](../audio/phase-10-lesson-14.m3u)
 
 
 ![Lesson 13 Takeaway](../images/takeaway-13.svg)

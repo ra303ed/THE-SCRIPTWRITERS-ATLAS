@@ -100,7 +100,7 @@ The new course examples are teaching examples, not claims that a fictional produ
 
 ## Voiceover scripts and audio
 
-Every core lesson includes a complete, conversational English voiceover script designed to teach rather than read the page. Runtime estimates are planning estimates; recording pace, pauses, and visual holds change the actual length. The scripts are ready to record. Generated audio is included for **Lessons 1–8** (Phase 1 Lessons 1–2, Phase 2 Lesson 3, Phase 3 Lessons 4–5, Phase 4 Lesson 6, Phase 5 Lesson 7, and Phase 6 Lesson 8), split into numbered MP3 parts with playlists because of per-clip generation limits. The remaining eight English voiceover scripts are complete; their audio can be generated in later batches. See [audio files and playlists](audio/README.md).
+Every core lesson includes a complete, conversational English voiceover script designed to teach rather than read the page. Runtime estimates are planning estimates; recording pace, pauses, and visual holds change the actual length. Generated audio is included for **all 16 lessons** (Phase 1 Lessons 1–2, Phase 2 Lesson 3, Phase 3 Lessons 4–5, Phase 4 Lesson 6, Phase 5 Lesson 7, Phase 6 Lessons 8–9, Phase 7 Lesson 10, Phase 8 Lesson 11, Phase 9 Lesson 12, Phase 10 Lessons 13–14, Phase 11 Lesson 15, and Phase 12 Lesson 16), split into numbered MP3 parts with playlists because of per-clip generation limits. See [audio files and playlists](audio/README.md).
 
 ---
 

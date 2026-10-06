@@ -104,7 +104,7 @@ const resourceById = new Map(RESOURCES.map((resource) => [resource.id, resource]
 const resourceIdByFile = new Map(RESOURCES.map((resource) => [resource.file, resource.id]));
 const phaseByFile = new Map(PHASES.map((phase) => [phase.file, phase]));
 const markdownCache = new Map();
-const AUDIO_PART_COUNTS = { 1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5 };
+const AUDIO_PART_COUNTS = { 1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5, 9: 5, 10: 5, 11: 5, 12: 6, 13: 5, 14: 5, 15: 5, 16: 6 };
 const AUDIO_HIGHLIGHTS = {
   1: ["topic", "question", "audience", "angle", "thesis", "promise", "evidence"],
   2: ["sentence", "action", "evidence", "meaning", "bridge", "active voice", "passive voice"],
@@ -114,49 +114,103 @@ const AUDIO_HIGHLIGHTS = {
   6: ["claim", "observation", "inference", "evidence", "source", "uncertainty"],
   7: ["hook", "promise", "curiosity", "proof", "payoff", "retention"],
   8: ["human voice", "natural", "specific", "honest", "personality", "trust"],
+  9: ["sentence pace", "information pace", "narrative pace", "emotional pace", "read aloud", "comprehension"],
+  10: ["a-roll", "b-roll", "visual proof", "recording copy", "editor copy", "production script"],
+  11: ["short-form", "long-form", "compression", "payoff", "closure", "format"],
+  12: ["brief", "workflow", "outline", "evidence map", "truth rewrite", "handoff"],
+  13: ["autopsy", "diagnosis", "symptom", "structure", "evidence", "rewrite"],
+  14: ["revision", "ten passes", "scorecard", "feedback", "trade-off", "diagnosis"],
+  15: ["lens", "emphasis", "omission", "framing", "persuasion", "evidence"],
+  16: ["production-ready", "capstone", "recording copy", "editor copy", "verification", "shot list"],
 };
 const AUDIO_TERM_TRANSLATIONS = {
+  "a-roll": "لقطات المتحدث الأساسية",
   "active voice": "المبني للمعلوم",
   action: "الفعل",
   angle: "زاوية المعالجة",
   audience: "الفئة المستهدفة",
+  autopsy: "تشريح النص",
   beat: "خطوة في تسلسل المشهد",
+  "b-roll": "لقطات مساعدة",
+  brief: "موجز العمل",
   bridge: "جملة الربط",
   cause: "السبب",
   change: "التغيير",
   choice: "الاختيار",
   claim: "الادعاء",
+  closure: "الإغلاق أو الإجابة",
   comparison: "المقارنة",
+  compression: "الاختصار المكثف",
+  comprehension: "الاستيعاب",
   consequence: "النتيجة المترتبة",
   chronology: "التسلسل الزمني",
   curiosity: "الفضول",
   decision: "القرار",
   desire: "الرغبة",
+  diagnosis: "التشخيص",
+  "editor copy": "نسخة المونتير",
+  emphasis: "موضع التركيز",
+  "emotional pace": "الإيقاع العاطفي",
   evidence: "الدليل",
+  "evidence map": "خريطة الأدلة",
+  feedback: "الملاحظات",
+  format: "الصيغة",
+  framing: "التأطير",
+  handoff: "التسليم",
   "human voice": "الصوت الإنساني",
   honest: "صادق",
   hook: "افتتاحية جاذبة",
   inference: "الاستنتاج",
+  "information pace": "وتيرة المعلومات",
+  lens: "زاوية النظر",
+  "long-form": "الفيديو الطويل",
   meaning: "المعنى",
   natural: "طبيعي",
+  narrative: "السرد",
+  "narrative pace": "إيقاع السرد",
   obstacle: "العقبة",
   observation: "الملاحظة",
+  omission: "ما نختار عدم ذكره",
+  outline: "المخطط",
   payoff: "النتيجة أو المكافأة",
   personality: "الطابع الشخصي",
   "passive voice": "المبني للمجهول",
+  "production-ready": "جاهز للإنتاج",
+  "production script": "سكريبت الإنتاج",
+  capstone: "المشروع الختامي",
   proof: "الإثبات",
   promise: "الوعد للمشاهد",
+  persuasion: "الإقناع",
   question: "السؤال",
+  "read aloud": "القراءة بصوت مسموع",
+  recording: "التسجيل",
+  "recording copy": "نسخة التسجيل",
   retention: "الحفاظ على انتباه المشاهد",
+  revision: "المراجعة",
+  rewrite: "إعادة الكتابة",
+  scorecard: "بطاقة التقييم",
   sentence: "الجملة",
+  "sentence pace": "إيقاع الجملة",
+  "shot list": "قائمة اللقطات",
+  "short-form": "الفيديو القصير",
+  sound: "الصوت",
   source: "المصدر",
   specific: "محدد",
   structure: "البناء أو الهيكل",
+  symptom: "العَرَض",
   thesis: "الفكرة الرئيسية أو الموقف",
+  "ten passes": "مراحل المراجعة العشر",
   topic: "الموضوع",
+  "trade-off": "المفاضلة",
+  "truth rewrite": "مراجعة الصدق",
   uncertainty: "ما لم يُحسم بعد",
+  verification: "التحقق",
   viewer: "المشاهد",
+  visual: "الصورة",
+  "visual proof": "الدليل البصري",
+  workflow: "سير العمل",
   trust: "الثقة",
+  ethics: "الأخلاقيات",
 };
 const AUDIO_SECTION_TRANSLATIONS = {
   "Core Idea": "الفكرة الأساسية",
@@ -169,6 +223,13 @@ const AUDIO_SECTION_TRANSLATIONS = {
   "How to Apply It": "طريقة التطبيق",
   "Practice Exercise": "تمرين عملي",
   "Mini Checkpoint": "مراجعة سريعة",
+  "Professional Scorecard": "بطاقة تقييم احترافية",
+  "Capstone Rubric": "معايير المشروع الختامي",
+  "Long-form package": "حزمة الفيديو الطويل",
+  "Short-form package": "حزمة الفيديو القصير",
+  "Professional handoff": "التسليم الاحترافي",
+  Workshop: "ورشة عمل",
+  Autopsy: "تشريح النص",
   Assignment: "المهمة",
   Takeaway: "الخلاصة",
 };
@@ -477,7 +538,9 @@ function extractVoiceoverScript(markdown) {
   const start = match.index + match[0].length;
   const remainder = markdown.slice(start);
   const divider = /^---+\s*$/m.exec(remainder);
-  return (divider ? remainder.slice(0, divider.index) : remainder).trim();
+  return (divider ? remainder.slice(0, divider.index) : remainder)
+    .replace(/\[([^\]]+)\]/g, "$1")
+    .trim();
 }
 
 function removeVoiceoverScript(markdown) {
@@ -804,21 +867,26 @@ function audioPlayerMarkup(lesson, voiceover) {
       <div class="audio-parts" aria-label="أجزاء الصوت">${parts}</div>
       <label class="speed-control" for="audio-speed"><span lang="ar" dir="rtl">سرعة الصوت</span><select id="audio-speed" aria-label="سرعة تشغيل الصوت"><option value="0.8">0.8× بطيء</option><option value="0.9">0.9×</option><option value="1" selected>1× عادي</option><option value="1.15">1.15×</option></select></label>
     </div>
-    <div class="transcript-heading">
-      <div><span class="transcript-kicker" lang="ar" dir="rtl">تابع النص</span><h3 lang="ar" dir="rtl">نص التعليق الصوتي</h3></div>
-      <button class="transcript-toggle" id="transcript-toggle" type="button" aria-expanded="true">إخفاء النص</button>
-    </div>
-    <div class="transcript-copy" id="transcript-copy">
-      <div class="transcript-scroll" id="transcript-scroll" lang="en" dir="ltr" role="region" aria-label="نص التعليق الصوتي المتزامن">
-        <div class="transcript-content" id="transcript-content">${transcript.markup}</div>
+    <div class="transcript-reader" id="transcript-reader" role="region" aria-label="نص التعليق الصوتي">
+      <div class="transcript-heading">
+        <div><span class="transcript-kicker" lang="ar" dir="rtl">تابع النص</span><h3 lang="ar" dir="rtl">نص التعليق الصوتي</h3></div>
+        <div class="transcript-heading-actions">
+          <button class="transcript-toggle" id="transcript-toggle" type="button" aria-expanded="true">إخفاء النص</button>
+          <button class="transcript-fullscreen-toggle" id="transcript-fullscreen-toggle" type="button" aria-controls="transcript-reader" aria-expanded="false" aria-label="عرض نص التعليق الصوتي بملء الشاشة">ملء الشاشة <span aria-hidden="true">⛶</span></button>
+        </div>
       </div>
-      <div class="transcript-legend" lang="ar" dir="rtl">
-        <span class="legend-current-line"><i aria-hidden="true"></i>السطر الأزرق هو الجاري نطقه</span>
-        <span class="legend-active-section"><i aria-hidden="true"></i>القسم ذو الإطار الأزرق هو الجاري شرحه</span>
-        <span class="legend-key-terms"><i aria-hidden="true"></i>الكلمات الذهبية مهمة</span>
-        <div class="key-term-list">${keyTerms}</div>
+      <div class="transcript-copy" id="transcript-copy">
+        <div class="transcript-scroll" id="transcript-scroll" lang="en" dir="ltr" role="region" aria-label="نص التعليق الصوتي المتزامن" tabindex="-1">
+          <div class="transcript-content" id="transcript-content">${transcript.markup}</div>
+        </div>
+        <div class="transcript-legend" lang="ar" dir="rtl">
+          <span class="legend-current-line"><i aria-hidden="true"></i>السطر الأزرق هو الجاري نطقه</span>
+          <span class="legend-active-section"><i aria-hidden="true"></i>القسم ذو الإطار الأزرق هو الجاري شرحه</span>
+          <span class="legend-key-terms"><i aria-hidden="true"></i>الكلمات الذهبية مهمة</span>
+          <div class="key-term-list">${keyTerms}</div>
+        </div>
+        <p class="transcript-note" lang="ar" dir="rtl">القسم والجملة يتقدمان تلقائيًا مع الصوت. التوقيت تقديري لأن التسجيلات لا تحتوي على توقيت منفصل لكل كلمة.</p>
       </div>
-      <p class="transcript-note" lang="ar" dir="rtl">القسم والجملة يتقدمان تلقائيًا مع الصوت. التوقيت تقديري لأن التسجيلات لا تحتوي على توقيت منفصل لكل كلمة.</p>
     </div>
   </section>`;
 }
@@ -885,6 +953,7 @@ function appShell(route, content) {
 }
 
 async function renderApp() {
+  document.documentElement.classList.remove("has-transcript-fullscreen");
   const route = currentRoute();
   app.innerHTML = `<div class="boot-screen" role="status"><div class="boot-mark">A</div><p>Loading course content…</p></div>`;
   try {
@@ -973,6 +1042,8 @@ function bindInteractions(route) {
   const audioSpeed = document.getElementById("audio-speed");
   const voiceToggle = document.getElementById("voice-toggle");
   const voiceDock = document.getElementById("voice-dock");
+  const voiceDockOriginalParent = voiceDock?.parentNode;
+  const voiceDockOriginalNextSibling = voiceDock?.nextSibling;
   const voiceDockState = document.getElementById("voice-dock-state");
   const voiceDockSection = document.getElementById("voice-dock-section");
   const voiceDockSectionName = document.getElementById("voice-dock-section-name");
@@ -980,6 +1051,8 @@ function bindInteractions(route) {
   const voiceShowTranscript = document.getElementById("voice-show-transcript");
   const transcriptCopy = document.getElementById("transcript-copy");
   const transcriptToggle = document.getElementById("transcript-toggle");
+  const transcriptReader = document.getElementById("transcript-reader");
+  const transcriptFullscreenToggle = document.getElementById("transcript-fullscreen-toggle");
   const transcriptScroll = document.getElementById("transcript-scroll");
   const transcriptCues = [...document.querySelectorAll("[data-transcript-index]")].map((element) => ({
     index: Number(element.dataset.transcriptIndex),
@@ -1012,6 +1085,40 @@ function bindInteractions(route) {
     transcriptCopy.hidden = !open;
     transcriptToggle?.setAttribute("aria-expanded", String(open));
     if (transcriptToggle) transcriptToggle.textContent = open ? "إخفاء النص" : "إظهار النص";
+  };
+  const setTranscriptFullscreen = (open, restoreFocus = true) => {
+    if (!transcriptReader) return;
+    const wasOpen = transcriptReader.classList.contains("is-fullscreen");
+    if (wasOpen === open) return;
+    if (open && transcriptCopy?.hidden) setTranscriptOpen(true);
+
+    transcriptReader.classList.toggle("is-fullscreen", open);
+    document.documentElement.classList.toggle("has-transcript-fullscreen", open);
+    transcriptFullscreenToggle?.setAttribute("aria-expanded", String(open));
+    if (open) {
+      if (voiceDock && voiceDock.parentNode !== transcriptReader) transcriptReader.append(voiceDock);
+      transcriptReader.setAttribute("role", "dialog");
+      transcriptReader.setAttribute("aria-modal", "true");
+      transcriptReader.setAttribute("aria-label", "نص التعليق الصوتي بملء الشاشة");
+      transcriptFullscreenToggle?.setAttribute("aria-label", "إغلاق عرض النص بملء الشاشة");
+      if (transcriptFullscreenToggle) transcriptFullscreenToggle.innerHTML = "إغلاق العرض الكامل <span aria-hidden=\"true\">×</span>";
+      window.requestAnimationFrame(() => {
+        transcriptScroll?.focus({ preventScroll: true });
+        const activeCue = transcriptCues.find((cue) => cue.index === activeCueIndex);
+        if (activeCue) scrollTranscriptCueIntoView(activeCue.element);
+      });
+    } else {
+      if (voiceDockOriginalParent && voiceDock && voiceDock.parentNode !== voiceDockOriginalParent) {
+        const nextSibling = voiceDockOriginalNextSibling?.parentNode === voiceDockOriginalParent ? voiceDockOriginalNextSibling : null;
+        voiceDockOriginalParent.insertBefore(voiceDock, nextSibling);
+      }
+      transcriptReader.setAttribute("role", "region");
+      transcriptReader.removeAttribute("aria-modal");
+      transcriptReader.setAttribute("aria-label", "نص التعليق الصوتي");
+      transcriptFullscreenToggle?.setAttribute("aria-label", "عرض نص التعليق الصوتي بملء الشاشة");
+      if (transcriptFullscreenToggle) transcriptFullscreenToggle.innerHTML = "ملء الشاشة <span aria-hidden=\"true\">⛶</span>";
+      if (restoreFocus) transcriptFullscreenToggle?.focus({ preventScroll: true });
+    }
   };
   const setActiveVoiceSection = (progress, scroll = false) => {
     if (!voiceSections.length || !totalSectionWeight) return;
@@ -1074,9 +1181,11 @@ function bindInteractions(route) {
   };
   const scrollTranscriptCueIntoView = (element) => {
     if (!transcriptScroll || audioPanel?.hidden || !element) return;
-    const panelBounds = audioPanel.getBoundingClientRect();
     const scrollBounds = transcriptScroll.getBoundingClientRect();
-    if (panelBounds.bottom <= 0 || panelBounds.top >= window.innerHeight) return;
+    if (!transcriptReader?.classList.contains("is-fullscreen")) {
+      const panelBounds = audioPanel.getBoundingClientRect();
+      if (panelBounds.bottom <= 0 || panelBounds.top >= window.innerHeight) return;
+    }
     const cueBounds = element.getBoundingClientRect();
     if (cueBounds.top < scrollBounds.top + 12 || cueBounds.bottom > scrollBounds.bottom - 12) {
       transcriptScroll.scrollTo({
@@ -1184,12 +1293,16 @@ function bindInteractions(route) {
     setPanelOpen(open, open, open);
   });
   audioClose?.addEventListener("click", () => {
+    setTranscriptFullscreen(false, false);
     audio?.pause();
     setPanelOpen(false);
   });
   voiceToggle?.addEventListener("click", playOrPause);
   voiceShowTranscript?.addEventListener("click", () => setPanelOpen(true, true, true));
   transcriptToggle?.addEventListener("click", () => setTranscriptOpen(Boolean(transcriptCopy?.hidden)));
+  transcriptFullscreenToggle?.addEventListener("click", () => {
+    setTranscriptFullscreen(!transcriptReader?.classList.contains("is-fullscreen"));
+  });
   audioParts.forEach((button) => button.addEventListener("click", () => selectAudioPart(button)));
   audioSpeed?.addEventListener("change", () => {
     if (audio) audio.playbackRate = Number(audioSpeed.value) || 1;
@@ -1328,9 +1441,42 @@ document.addEventListener("click", (event) => {
   if (results && !event.target.closest(".search-wrap")) results.hidden = true;
 });
 document.addEventListener("keydown", (event) => {
+  const fullscreenToggle = document.getElementById("transcript-fullscreen-toggle");
+  const isTranscriptFullscreen = fullscreenToggle?.getAttribute("aria-expanded") === "true";
+  if (event.key === "Escape" && isTranscriptFullscreen) {
+    event.preventDefault();
+    fullscreenToggle.click();
+    return;
+  }
+  if (isTranscriptFullscreen && event.key === "Tab") {
+    const reader = document.getElementById("transcript-reader");
+    const focusable = [...(reader?.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])') || [])]
+      .filter((element) => element.getClientRects().length > 0);
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (!first) {
+      event.preventDefault();
+      return;
+    }
+    if (event.target === document.getElementById("transcript-scroll")) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+      return;
+    }
+    if (event.shiftKey && event.target === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+    if (!event.shiftKey && event.target === last) {
+      event.preventDefault();
+      first.focus();
+      return;
+    }
+  }
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
     event.preventDefault();
-    document.getElementById("course-search")?.focus();
+    if (!isTranscriptFullscreen) document.getElementById("course-search")?.focus();
   }
 });
 

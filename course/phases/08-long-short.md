@@ -15,7 +15,7 @@ You will create two related but complete scripts: one short piece that stands al
 
 # Lesson 11 — Change the Architecture, Not Just the Runtime
 
-**Estimated voiceover:** 11–13 minutes · **Practice:** 45 minutes
+**Estimated voiceover:** 11–13 minutes · **Practice:** 45 minutes · **Audio:** [listen to Lesson 11](../audio/phase-08-lesson-11.m3u)
 
 ## What You Will Learn
 
